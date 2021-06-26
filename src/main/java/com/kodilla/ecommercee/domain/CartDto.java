@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class CartDto {
 
-    private long cardId;
+    private final long cardId;
     private BigDecimal cartSum;
     private boolean isCartClosed;
 

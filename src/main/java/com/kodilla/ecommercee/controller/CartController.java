@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.controller;
 
 
+import com.kodilla.ecommercee.controller.exception.CardNotFoundException;
 import com.kodilla.ecommercee.domain.CartDto;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 public class CartController {
 
     @GetMapping(value = "getCard")
-    public CartDto getCard(@RequestParam long cardId) throws CardNotFoundExeption {
+    public CartDto getCard(@RequestParam long cardId) throws CardNotFoundException {
 
 //    fixed data  - return object for test purpose only
         CartDto cartDto2 = new CartDto(1, new BigDecimal(55.3), false);
@@ -23,7 +24,7 @@ public class CartController {
         if (cardId == 3L){ return new CartDto(3, new BigDecimal(333.00), false); }
         if (cardId == 4L){ return new CartDto(4, new BigDecimal(2_499.99), false); }
 
-        throw new CardNotFoundExeption();
+        throw new CardNotFoundException();
     }
 
     @DeleteMapping(value = "deleteCard")
@@ -35,11 +36,11 @@ public class CartController {
     }
 
     @PutMapping(value = "updateCard")
-    public CartDto updateCard(@RequestBody CartDto cartDto) throws CardNotFoundExeption {
+    public CartDto updateCard(@RequestBody CartDto cartDto) throws CardNotFoundException {
 
         if (cartDto.getCardId() <= 4L){ return cartDto; }
 
-        throw new CardNotFoundExeption();
+        throw new CardNotFoundException();
     }
 
     @PostMapping(value = "createCard")
