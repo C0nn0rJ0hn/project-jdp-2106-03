@@ -1,9 +1,10 @@
-package com.kodilla.ecommercee.domain;
+package com.kodilla.ecommercee.domain.dto;
 
 public class GroupDto {
 
     private Long id;
     private String name;
+
 
     public GroupDto(Long id, String name) {
         this.id = id;
