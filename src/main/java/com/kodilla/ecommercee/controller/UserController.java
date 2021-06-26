@@ -13,10 +13,11 @@ import java.util.List;
 @RequestMapping("/v1/users")
 public class UserController {
 
+    List<UserDto> userList = new ArrayList<>();
+
     @GetMapping("getUsers")
     public List<UserDto> getUsers() {
         //Fixed return object for test purpose only
-        List<UserDto> userList = new ArrayList<>();
         userList.add(new UserDto(1L, "Jan", "Kowalski", "jankowalski@eu.pl", "+48555222111", "88051202587"));
         userList.add(new UserDto(2L, "Anna", "Baziak", "annabaziak@eu.pl", "+48555222333", "870303225147"));
         userList.add(new UserDto(3L, "Lech", "Zimny", "lechzimny@eu.pl", "+48555222444", "75020414231"));
@@ -39,11 +40,14 @@ public class UserController {
         if (userId == 3) returnUserDto = UserDto4;
         if (userId > 3) throw new UserNotFoundException();
 
+
         return returnUserDto;
     }
 
     @DeleteMapping("deleteUser")
     public void deleteUser(@RequestParam Long userId) {
+        userList.removeIf(u -> u.getId() == userId);
+
     }
 
     @PutMapping("updateUser")
@@ -66,5 +70,6 @@ public class UserController {
 
     @PostMapping("createUser")
     public void createUser(@RequestBody UserDto userDto) {
+        userList.add(userDto);
     }
 }
