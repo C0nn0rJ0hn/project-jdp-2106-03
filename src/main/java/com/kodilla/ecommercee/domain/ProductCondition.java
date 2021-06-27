@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-public enum ProductCondition
-{
+public enum ProductCondition {
     NEW,
     OUTLET
 }

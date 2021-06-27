@@ -2,8 +2,7 @@ package com.kodilla.ecommercee.domain.dto;
 
 import com.kodilla.ecommercee.domain.ProductCondition;
 
-public class ProductDto
-{
+public class ProductDto {
     private Long id;
     private String name;
     private String shortDesc;
@@ -16,8 +15,7 @@ public class ProductDto
 
     public ProductDto(Long id, String name, String shortDesc, String longDesc, double productPrice,
                       int quantityOnStore, ProductCondition productCondition, double productWeight,
-                      boolean stillOnSale)
-    {
+                      boolean stillOnSale) {
         this.id = id;
         this.name = name;
         this.shortDesc = shortDesc;
