@@ -4,18 +4,18 @@ import java.math.BigDecimal;
 
 public class CartDto {
 
-    private long cardId;
+    private long cartId;
     private BigDecimal cartSum;
     private boolean isCartClosed;
 
     public CartDto(int id, BigDecimal cartSum, boolean isCartClosed) {
-        this.cardId = id;
+        this.cartId = id;
         this.cartSum = cartSum;
         this.isCartClosed = isCartClosed;
     }
 
-    public long getCardId() {
-        return cardId;
+    public long getCartId() {
+        return cartId;
     }
 
     public BigDecimal getCartSum() {
@@ -33,14 +33,14 @@ public class CartDto {
 
         CartDto cartDto = (CartDto) o;
 
-        if (cardId != cartDto.cardId) return false;
+        if (cartId != cartDto.cartId) return false;
         if (isCartClosed != cartDto.isCartClosed) return false;
         return cartSum != null ? cartSum.equals(cartDto.cartSum) : cartDto.cartSum == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (cardId ^ (cardId >>> 32));
+        int result = (int) (cartId ^ (cartId >>> 32));
         result = 31 * result + (cartSum != null ? cartSum.hashCode() : 0);
         result = 31 * result + (isCartClosed ? 1 : 0);
         return result;
