@@ -29,7 +29,7 @@ public class ProductController {
 
     }
 
-    @PutMapping("/updateProduct")
+    @PutMapping(value = "/updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return new ProductDto(1L, "Edited Name", "Edited shortDesc", "Edited longDesc", 5500.00,
                 3, ProductCondition.OUTLET, 20.00, true);
