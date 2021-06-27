@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/vi/card")
+@RequestMapping("/v1/cart")
 public class CartController {
 
-    @GetMapping(value = "getCard")
+    @GetMapping(value = "getCart")
     public CartDto getCard(@RequestParam long cardId) throws CardNotFoundException {
 
 //    fixed data  - return object for test purpose only
@@ -27,7 +27,7 @@ public class CartController {
         throw new CardNotFoundException();
     }
 
-    @DeleteMapping(value = "deleteCard")
+    @DeleteMapping(value = "deleteCart")
     public boolean deleteCard(@RequestParam long cardId ){
 
         if (cardId <= 4L){ return true; }
@@ -35,7 +35,7 @@ public class CartController {
         return false;
     }
 
-    @PutMapping(value = "updateCard")
+    @PutMapping(value = "updateCart")
     public CartDto updateCard(@RequestBody CartDto cartDto) throws CardNotFoundException {
 
         if (cartDto.getCardId() <= 4L){ return cartDto; }
@@ -43,7 +43,7 @@ public class CartController {
         throw new CardNotFoundException();
     }
 
-    @PostMapping(value = "createCard")
+    @PostMapping(value = "createCart")
     public CartDto createCard(@RequestBody CartDto cartDto){
         return cartDto;
     }
