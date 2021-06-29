@@ -3,10 +3,13 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.controller.exception.UserNotFoundException;
 import com.kodilla.ecommercee.domain.dto.UserDto;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.LockModeType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -68,8 +71,17 @@ public class UserController {
         return returnUserDto;
     }
 
+    @PutMapping("lockUser")
+    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
+    public void lockUser (@RequestParam Long userId) {
+        UserDto userDto = userList.get(userList.indexOf(userId));
+
+    }
+
     @PostMapping("createUser")
     public void createUser(@RequestBody UserDto userDto) {
         userList.add(userDto);
     }
+
+
 }
