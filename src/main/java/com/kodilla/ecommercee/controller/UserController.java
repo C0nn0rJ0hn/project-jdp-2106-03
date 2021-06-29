@@ -10,7 +10,6 @@ import javax.persistence.LockModeType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.locks.ReentrantLock;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,6 +17,24 @@ import java.util.concurrent.locks.ReentrantLock;
 public class UserController {
 
     List<UserDto> userList = new ArrayList<>();
+
+    @PutMapping("lockUser")
+    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
+    public String  lockUser (@RequestParam Long userId) {
+        String out = ("User with ID " + userId + " is blocked");
+        return out;
+    }
+
+    @PostMapping("createUser")
+    public void createUser(@RequestBody UserDto userDto) {
+        userList.add(userDto);
+    }
+
+    @PostMapping("generateKey")
+    public String generateKey(@RequestBody UserDto userDto) {
+        String uuid = UUID.randomUUID().toString();
+        return uuid;
+    }
 
     @GetMapping("getUsers")
     public List<UserDto> getUsers() {
@@ -72,22 +89,6 @@ public class UserController {
         return returnUserDto;
     }
 
-    @PutMapping("lockUser")
-    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
-    public void lockUser (@RequestParam Long userId) {
-        UserDto userDto = userList.get(userList.indexOf(userId));
 
-    }
-
-    @PostMapping("createUser")
-    public void createUser(@RequestBody UserDto userDto) {
-        userList.add(userDto);
-    }
-
-    @PostMapping("generateKey")
-    public String generateKey(@RequestBody UserDto userDto) {
-        String uuid = UUID.randomUUID().toString();
-        return uuid;
-    }
 
 }
