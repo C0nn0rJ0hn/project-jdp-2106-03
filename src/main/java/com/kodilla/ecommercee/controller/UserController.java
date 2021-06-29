@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.LockModeType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
 
 @CrossOrigin(origins = "*")
@@ -83,5 +84,10 @@ public class UserController {
         userList.add(userDto);
     }
 
+    @PostMapping("generateKey")
+    public String generateKey(@RequestBody UserDto userDto) {
+        String uuid = UUID.randomUUID().toString();
+        return uuid;
+    }
 
 }
