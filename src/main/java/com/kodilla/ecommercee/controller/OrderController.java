@@ -111,4 +111,11 @@ public class OrderController {
         return returnResult;
     }
 
+    @DeleteMapping(value = "deleteOrder")
+    public boolean deleteOrder(@RequestParam long orderId){
+        if ( orderId < 5L){
+            return true;
+        }
+        return false;
+    }
 }
