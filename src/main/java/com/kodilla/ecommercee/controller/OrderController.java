@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.controller.exception.OrderNotFoundException;
-import com.kodilla.ecommercee.domain.OrderDto;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;

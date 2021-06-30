@@ -3,12 +3,7 @@ package com.kodilla.ecommercee.domain.dto;
 import java.math.BigDecimal;
 
 public class CartDto {
-
-<<<<<<< HEAD:src/main/java/com/kodilla/ecommercee/domain/CartDto.java
-    private final long cardId;
-=======
     private long cartId;
->>>>>>> main:src/main/java/com/kodilla/ecommercee/domain/dto/CartDto.java
     private BigDecimal cartSum;
     private boolean isCartClosed;
 
