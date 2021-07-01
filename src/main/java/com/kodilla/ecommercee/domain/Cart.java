@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
 
-@Entity(name = "CARTS")
+@Entity
 public class Cart {
 
     private Long id;
@@ -22,7 +22,7 @@ public class Cart {
     }
 
     @Id
-    @Column(name = "CART_ID", unique = true)
+    @Column(unique = true)
     @GeneratedValue
     public Long getId() {
         return id;
@@ -32,7 +32,7 @@ public class Cart {
         this.id = id;
     }
 
-    @Column(name = "CART_SUM")
+    @Column
     public BigDecimal getCartSum() {
         return cartSum;
     }
@@ -41,7 +41,7 @@ public class Cart {
         this.cartSum = cartSum;
     }
 
-    @Column(name = "IS_CART_CLOSED")
+    @Column
     public boolean isCartClosed() {
         return isCartClosed;
     }
@@ -52,9 +52,8 @@ public class Cart {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "PRODUCTS_IN_CARTS",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
+            joinColumns = {@JoinColumn(referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(referencedColumnName = "id")}
     )
     public Set<Product> getProducts() {
         return products;
