@@ -18,7 +18,7 @@ public class OrderController {
     public OrderDto createOrder(@RequestBody OrderDto orderDto){ return  orderDto; }
 
     @PutMapping(value = "updateOrder")
-    public OrderDto updateOrder( @RequestParam OrderDto orderDto) throws OrderNotFoundException{
+    public OrderDto updateOrder( @RequestBody OrderDto orderDto) throws OrderNotFoundException{
 
         if (orderDto.getId() < 5L){return orderDto; }
         throw new OrderNotFoundException();

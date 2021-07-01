@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.ProductCondition;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ProductController {
 
     }
 
-    @PutMapping(value = "/updateProduct")
+    @PutMapping(value = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return new ProductDto(1L, "Edited Name", "Edited shortDesc", "Edited longDesc", 5500.00,
                 3, ProductCondition.OUTLET, 20.00, true);
