@@ -2,8 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public final class Product {
@@ -18,7 +17,7 @@ public final class Product {
     private double productWeight;
     private boolean stillOnSale;
     private Group group;
-    private List<Cart> carts = new ArrayList<>();
+    private Set<Cart> carts;
 
     public Product() {
     }
@@ -90,7 +89,7 @@ public final class Product {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
-    public List<Cart> getCarts() {
+    public Set<Cart> getCarts() {
         return carts;
     }
 
@@ -134,7 +133,7 @@ public final class Product {
         this.group = group;
     }
 
-    public void setCarts(List<Cart> carts) {
+    public void setCarts(Set<Cart> carts) {
         this.carts = carts;
     }
 }
