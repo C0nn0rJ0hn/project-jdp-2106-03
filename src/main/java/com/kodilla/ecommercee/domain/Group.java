@@ -21,7 +21,7 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(unique = true)
+    @Column(name = "GROUP_ID", unique = true)
     public Long getId() {
         return id;
     }

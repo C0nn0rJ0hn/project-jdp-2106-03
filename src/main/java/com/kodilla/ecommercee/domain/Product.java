@@ -84,7 +84,7 @@ public class Product {
     }
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "GROUP_ID")
     public Group getGroup() {
         return group;
     }
