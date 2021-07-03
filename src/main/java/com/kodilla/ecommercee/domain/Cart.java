@@ -18,6 +18,13 @@ public class Cart {
         this.isCartClosed = isCartClosed;
     }
 
+    public Cart(Long id, BigDecimal cartSum, boolean isCartClosed, Set<Product> products) {
+        this.id = id;
+        this.cartSum = cartSum;
+        this.isCartClosed = isCartClosed;
+        this.products = products;
+    }
+
     public Cart() {
     }
 
