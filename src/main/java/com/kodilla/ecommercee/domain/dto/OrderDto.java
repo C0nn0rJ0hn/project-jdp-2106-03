@@ -7,7 +7,7 @@ public class OrderDto {
 
     private final long id;
     private final long userId;
-    private final long cardId;
+    private final long cartId;
     private final LocalDate orderDate;
     private final String orderNumber;
     private BigDecimal orderTotalPrice;
@@ -21,10 +21,10 @@ public class OrderDto {
     private String addressBuildNumber;
 
 
-    public OrderDto(long id, long userId, long cardId, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
+    public OrderDto(long id, long userId, long cartId, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
         this.id = id;
         this.userId = userId;
-        this.cardId = cardId;
+        this.cartId = cartId;
         this.orderDate = orderDate;
         this.orderNumber = orderNumber;
         this.orderTotalPrice = orderTotalPrice;
@@ -46,8 +46,8 @@ public class OrderDto {
         return userId;
     }
 
-    public long getCardId() {
-        return cardId;
+    public long getCartId() {
+        return cartId;
     }
 
     public LocalDate getOrderDate() {
@@ -103,7 +103,7 @@ public class OrderDto {
 
         if (id != orderDto.id) return false;
         if (userId != orderDto.userId) return false;
-        if (cardId != orderDto.cardId) return false;
+        if (cartId != orderDto.cartId) return false;
         if (orderDate != null ? !orderDate.equals(orderDto.orderDate) : orderDto.orderDate != null) return false;
         return orderNumber != null ? orderNumber.equals(orderDto.orderNumber) : orderDto.orderNumber == null;
     }
@@ -112,7 +112,7 @@ public class OrderDto {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
-        result = 31 * result + (int) (cardId ^ (cardId >>> 32));
+        result = 31 * result + (int) (cartId ^ (cartId >>> 32));
         result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
         result = 31 * result + (orderNumber != null ? orderNumber.hashCode() : 0);
         return result;
