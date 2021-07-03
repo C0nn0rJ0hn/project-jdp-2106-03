@@ -2,7 +2,8 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "CARTS")
 public class Cart {
@@ -10,7 +11,7 @@ public class Cart {
     private Long id;
     private BigDecimal cartSum;
     private boolean isCartClosed;
-    private Set<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Cart(Long id, BigDecimal cartSum, boolean isCartClosed) {
         this.id = id;
@@ -18,7 +19,7 @@ public class Cart {
         this.isCartClosed = isCartClosed;
     }
 
-    public Cart(Long id, BigDecimal cartSum, boolean isCartClosed, Set<Product> products) {
+    public Cart(Long id, BigDecimal cartSum, boolean isCartClosed, List<Product> products) {
         this.id = id;
         this.cartSum = cartSum;
         this.isCartClosed = isCartClosed;
@@ -63,11 +64,11 @@ public class Cart {
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
-    public Set<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }

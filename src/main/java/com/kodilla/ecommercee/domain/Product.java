@@ -2,7 +2,8 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -18,7 +19,7 @@ public class Product {
     private double productWeight;
     private boolean stillOnSale;
     private Group group;
-    private Set<Cart> carts;
+    private List<Cart> carts = new ArrayList<>();
 
     public Product(Long id, String name, String shortDesc, String longDesc, double productPrice, int quantityOnStore, ProductCondition productCondition, double productWeight, boolean stillOnSale) {
         this.id = id;
@@ -30,6 +31,19 @@ public class Product {
         this.productCondition = productCondition;
         this.productWeight = productWeight;
         this.stillOnSale = stillOnSale;
+    }
+
+    public Product(Long id, String name, String shortDesc, String longDesc, double productPrice, int quantityOnStore, ProductCondition productCondition, double productWeight, boolean stillOnSale, Group group) {
+        this.id = id;
+        this.name = name;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.productPrice = productPrice;
+        this.quantityOnStore = quantityOnStore;
+        this.productCondition = productCondition;
+        this.productWeight = productWeight;
+        this.stillOnSale = stillOnSale;
+        this.group = group;
     }
 
     public Product() {
@@ -90,7 +104,7 @@ public class Product {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
-    public Set<Cart> getCarts() {
+    public List<Cart> getCarts() {
         return carts;
     }
 
@@ -134,7 +148,7 @@ public class Product {
         this.group = group;
     }
 
-    public void setCarts(Set<Cart> carts) {
+    public void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
 }
