@@ -28,6 +28,16 @@ public class User {
         this.orders = orders;
     }
 
+    public User(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.NIP = NIP;
+        this.isBlocked = isBlocked;
+    }
+
     public User() {
     }
 
