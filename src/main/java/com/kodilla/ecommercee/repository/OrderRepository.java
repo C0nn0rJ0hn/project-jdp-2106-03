@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -25,6 +26,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     void deleteById(Long id);
 
     @Override
-    Iterable<Order> findAll();
+    List<Order> findAll();
 
 }
