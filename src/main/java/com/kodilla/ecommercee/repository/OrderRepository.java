@@ -11,15 +11,20 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long> {
+
     @Override
     Order save(Order order);
 
     @Override
-    Optional<Order> findById(Long aLong);
+    Optional<Order> findById(Long id);
 
     @Override
-    boolean existsById(Long aLong);
+    boolean existsById(Long id);
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(Long id);
+
+    @Override
+    Iterable<Order> findAll();
+
 }

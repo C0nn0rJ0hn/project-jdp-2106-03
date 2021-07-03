@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity(name = "ORDERS")
 public class Order {
 
-    private  long id;
+    private  Long id;
     private  LocalDate orderDate;
     private  String orderNumber;
     private BigDecimal orderTotalPrice;
@@ -23,7 +23,7 @@ public class Order {
     private Cart cart;
     private User user;
 
-    public Order(long id, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
+    public Order(Long id, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
         this.id = id;
         this.orderDate = orderDate;
         this.orderNumber = orderNumber;
@@ -124,7 +124,7 @@ public class Order {
         this.cart = cart;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
