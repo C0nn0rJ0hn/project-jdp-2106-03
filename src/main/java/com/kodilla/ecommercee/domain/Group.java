@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "\"GROUP\"")
+@Table(name = "\"GROUPS\"")
 public class Group {
 
     private Long id;
