@@ -33,7 +33,7 @@ public class ProductController {
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return new ProductDto(1L, "Edited Name", "Edited shortDesc", "Edited longDesc", 5500.00,
                 3, ProductCondition.OUTLET, 20.00, true);
-    }
+     }
 
     @PostMapping(value = "/addProduct")
     public void addProduct(@RequestBody ProductDto productDto) {
