@@ -1,10 +1,12 @@
 package com.kodilla.ecommercee;
 
+import com.kodilla.ecommercee.controller.GroupController;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductCondition;
 import com.kodilla.ecommercee.repository.CartRepository;
+import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +32,7 @@ public class ProductTestSuite {
     private CartRepository cartRepository;
 
     @Autowired
-    private GroupController groupController;
+    private GroupRepository groupRepository;
 
     @Test
     public void shouldAddProduct() {
@@ -47,7 +49,7 @@ public class ProductTestSuite {
         Assert.assertEquals(1, products.size());
 
         //Cleanup
-        productRepository.deleteById(product1.getId());
+        productRepository.delete(product1);
     }
 
     @Test
@@ -68,8 +70,8 @@ public class ProductTestSuite {
         Assert.assertEquals(2, products.size());
 
         //Cleanup
-        productRepository.deleteById(product1.getId());
-        productRepository.deleteById(product2.getId());
+        productRepository.delete(product1);
+        productRepository.delete(product2);
     }
 
     @Test
@@ -90,8 +92,8 @@ public class ProductTestSuite {
         Assert.assertEquals("Product2", result.get().getName());
 
         //Cleanup
-        productRepository.deleteById(product1.getId());
-        productRepository.deleteById(product2.getId());
+        productRepository.delete(product1);
+        productRepository.delete(product2);
     }
 
     @Test
@@ -112,7 +114,7 @@ public class ProductTestSuite {
         Assert.assertEquals(1, productRepository.findAll().size());
 
         //Cleanup
-        productRepository.deleteById(product2.getId());
+        productRepository.delete(product2);
     }
 
     @Test
@@ -134,7 +136,7 @@ public class ProductTestSuite {
         Assert.assertEquals(2, cart.getProducts().size());
 
         //Cleanup
-        cartRepository.deleteById(cart.getId());
+        cartRepository.delete(cart);
     }
 
     @Transactional
@@ -166,7 +168,7 @@ public class ProductTestSuite {
         Assert.assertEquals(1, cartRepository.findAll().size());
 
         //Cleanup
-        cartRepository.deleteById(cart.getId());
+        cartRepository.delete(cart);
     }
 
     @Test
@@ -189,9 +191,10 @@ public class ProductTestSuite {
         Assert.assertEquals(2, group.getProducts().size());
 
         //Cleanup
-        groupRepository.deleteById(group.getId());
+        groupRepository.delete(group);
     }
 
+    @Transactional
     @Test
     public void shouldGroupBePresentWhenProductIsDeleted() {
 
@@ -221,6 +224,6 @@ public class ProductTestSuite {
         Assert.assertEquals(1, groupRepository.findAll().size());
 
         //Cleanup
-        groupRepository.deleteById(group.getId());
+        groupRepository.delete(group);
     }
 }
