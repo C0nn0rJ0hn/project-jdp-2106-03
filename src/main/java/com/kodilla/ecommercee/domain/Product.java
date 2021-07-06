@@ -21,6 +21,17 @@ public class Product {
     private Group group;
     private List<Cart> carts = new ArrayList<>();
 
+    public Product(String name, String shortDesc, String longDesc, double productPrice, int quantityOnStore, ProductCondition productCondition, double productWeight, boolean stillOnSale) {
+        this.name = name;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
+        this.productPrice = productPrice;
+        this.quantityOnStore = quantityOnStore;
+        this.productCondition = productCondition;
+        this.productWeight = productWeight;
+        this.stillOnSale = stillOnSale;
+    }
+
     public Product(Long id, String name, String shortDesc, String longDesc, double productPrice, int quantityOnStore, ProductCondition productCondition, double productWeight, boolean stillOnSale) {
         this.id = id;
         this.name = name;
