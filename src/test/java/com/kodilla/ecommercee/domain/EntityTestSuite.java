@@ -107,12 +107,26 @@ public class EntityTestSuite {
         assertEquals(2, resultList.size());
         assertEquals(3, resultListProducts.size());
 
-        System.out.println("resultList.size(): " + resultList.size());
-        System.out.println("resultListProducts.size(): " + resultListProducts.size());
+        System.out.println("First Add resultList.size(): " + resultList.size());
+        System.out.println("First Add resultListProducts.size(): " + resultListProducts.size());
+
+        resultList.stream()
+                .forEach( item-> System.out.println( "ID pgroups is: " +  item.getId() + " -  " + item.getName() ));
+
+        groupRepository.deleteById(4L);
+
+        resultList = groupRepository.findAll();
+
+        System.out.println("\tNewSize resultList.size(): " + resultList.size());
+        System.out.println("\tNEw Size resultListProducts.size(): " + resultListProducts.size());
+
+        assertEquals(1, resultList.size());
 
         //cleanUp
         groupRepository.deleteAll();
         productRepository.deleteAll();
+
+        //W
     }
 
 
