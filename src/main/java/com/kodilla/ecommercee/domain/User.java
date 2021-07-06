@@ -16,6 +16,15 @@ public class User {
     private Cart cart;
     private List<Order> orders;
 
+
+    public User( String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked) {
+        this.name = name;
+        this.lastname = lastname;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.NIP = NIP;
+        this.isBlocked = isBlocked;
+    }
     public User(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked, Cart cart, List<Order> orders) {
         this.id = id;
         this.name = name;
