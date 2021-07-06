@@ -93,7 +93,8 @@ public class Product {
         return quantityOnStore;
     }
 
-    @Column(name = "PRODUCT_CONDITION")
+    @Column(name = "PRODUCT_CONDITION", columnDefinition = "enum('NEW', 'OUTLET')")
+    @Enumerated(EnumType.STRING)
     public ProductCondition getProductCondition() {
         return productCondition;
     }
