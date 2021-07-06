@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -110,9 +111,14 @@ public class EntityTestSuite {
         System.out.println("First Add resultList.size(): " + resultList.size());
         System.out.println("First Add resultListProducts.size(): " + resultListProducts.size());
 
+        // check for selection by ID
         resultList.stream()
-                .forEach( item-> System.out.println( "ID pgroups is: " +  item.getId() + " -  " + item.getName() ));
+                .forEach( item-> System.out.println( "ID groups,  is: " +  item.getId() + " - and name: " + item.getName() ));
 
+        Optional<Group> selectedGroup = groupRepository.findById(1L);
+        System.out.println("selected group: " + selectedGroup.get().getId()  + " - " +  selectedGroup.get().getName());
+
+        // check for delete by ID
         groupRepository.deleteById(4L);
 
         resultList = groupRepository.findAll();
@@ -121,7 +127,6 @@ public class EntityTestSuite {
         System.out.println("\tNEw Size resultListProducts.size(): " + resultListProducts.size());
 
         assertEquals(1, resultList.size());
-
         //cleanUp
         groupRepository.deleteAll();
         productRepository.deleteAll();
