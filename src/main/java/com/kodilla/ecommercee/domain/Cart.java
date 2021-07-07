@@ -13,6 +13,11 @@ public class Cart {
     private boolean isCartClosed;
     private List<Product> products = new ArrayList<>();
 
+    public Cart(BigDecimal cartSum, boolean isCartClosed) {
+        this.cartSum = cartSum;
+        this.isCartClosed = isCartClosed;
+    }
+
     public Cart(Long id, BigDecimal cartSum, boolean isCartClosed) {
         this.id = id;
         this.cartSum = cartSum;

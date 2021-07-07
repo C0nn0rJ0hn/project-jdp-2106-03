@@ -6,13 +6,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "\"group\"")
+@Table(name = "\"GROUPS\"")
 public class Group {
+
     private Long id;
+    private String name;
     private List<Product> products = new ArrayList<>();
 
-    public Group(Long id) {
+    public Group(Long id, String name, List<Product> products) {
         this.id = id;
+        this.name = name;
+        this.products = products;
+    }
+
+    public Group(String name, List<Product> products) {
+        this.name = name;
+        this.products = products;
+    }
+
+    public Group(String name) {
+        this.name = name;
     }
 
     public Group() {
@@ -24,6 +37,11 @@ public class Group {
     @Column(name = "GROUP_ID", unique = true)
     public Long getId() {
         return id;
+    }
+
+    @Column(name = "GROUP_NAME")
+    public String getName() {
+        return name;
     }
 
     @OneToMany(
@@ -41,5 +59,8 @@ public class Group {
     }
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -38,11 +38,6 @@ public class UserController {
 
     @GetMapping("getUsers")
     public List<UserDto> getUsers() {
-        //Fixed return object for test purpose only
-        userList.add(new UserDto(1L, "Jan", "Kowalski", "jankowalski@eu.pl", "+48555222111", "88051202587"));
-        userList.add(new UserDto(2L, "Anna", "Baziak", "annabaziak@eu.pl", "+48555222333", "870303225147"));
-        userList.add(new UserDto(3L, "Lech", "Zimny", "lechzimny@eu.pl", "+48555222444", "75020414231"));
-        userList.add(new UserDto(4L, "Marta", "Nowak", "martanowak@eu.pl", "+48555222784", "92040512456"));
         return userList;
     }
 
@@ -73,22 +68,7 @@ public class UserController {
 
     @PutMapping("updateUser")
     public UserDto updateUser(@RequestBody UserDto UserDto) {
-        //Fixed return object for test purpose only
-        UserDto returnUserDto = new UserDto();
-        UserDto UserDto1 = new UserDto(1L, "Jan", "Kowalski", "jankowalski@eu.pl", "+48555222111", "88051202587");
-        UserDto UserDto2 = new UserDto(2L, "Anna", "Baziak", "annabaziak@eu.pl", "+48555222333", "870303225147");
-        UserDto UserDto3 = new UserDto(3L, "Lech", "Zimny", "lechzimny@eu.pl", "+48555222444", "75020414231");
-        UserDto UserDto4 = new UserDto(4L, "Marta", "Nowak", "martanowak@eu.pl", "+48555222784", "92040512456");
 
-
-        if (UserDto.equals(UserDto1)) returnUserDto = UserDto1;
-        if (UserDto.equals(UserDto2)) returnUserDto = UserDto2;
-        if (UserDto.equals(UserDto3)) returnUserDto = UserDto3;
-        if (UserDto.equals(UserDto4)) returnUserDto = UserDto4;
-
-        return returnUserDto;
+        return new UserDto(4L, "Marta", "Nowak", "martanowak@eu.pl", "+485552","88051214752");
     }
-
-
-
 }
