@@ -199,10 +199,9 @@ public class OrderTestSuite {
 
         //Then
         Assert.assertEquals("Basia", order.getUser().getName());
-        //Assert.assertEquals(1, user.getOrders().size());
 
         //Cleanup
         orderRepository.delete(order);
-        //userRepository.delete(user);
+        userRepository.delete(user);
     }
 }

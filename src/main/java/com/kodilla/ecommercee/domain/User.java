@@ -3,7 +3,7 @@ package com.kodilla.ecommercee.domain;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "USERS")
+@Entity
 public class User {
 
     private Long id;
