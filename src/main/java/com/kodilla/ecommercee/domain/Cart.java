@@ -63,7 +63,7 @@ public class Cart {
         isCartClosed = cartClosed;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "PRODUCTS_IN_CARTS",
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},

@@ -27,7 +27,7 @@ public class ProductMapper {
                 productDto.getProductCondition(),
                 productDto.getProductWeight(),
                 productDto.isStillOnSale(),
-                groupRepository.findById(productDto.getGroupId()).get()
+                groupRepository.findById(productDto.getGroupId()).orElse(null)
         );
     }
 

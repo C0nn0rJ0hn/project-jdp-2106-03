@@ -139,7 +139,7 @@ public class User {
         this.keyExpirationDate = keyExpirationDate;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CART_ID")
     public Cart getCart() {
         return cart;
@@ -151,7 +151,6 @@ public class User {
 
     @OneToMany(
             targetEntity = Order.class,
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user"
     )
