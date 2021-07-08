@@ -32,6 +32,14 @@ public class UserDto {
         this.ordersId = ordersId;
     }
 
+    public UserDto(String name, String lastname, String mail, String phoneNumber, String NIP) {
+        this.name = name;
+        this.lastname = lastname;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.NIP = NIP;
+    }
+
     public UserDto() {
     }
 
