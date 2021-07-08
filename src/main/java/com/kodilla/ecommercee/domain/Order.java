@@ -1,12 +1,10 @@
 package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "ORDERS")
+@Entity(name = "ORDERS")
 public class Order {
 
     private  Long id;

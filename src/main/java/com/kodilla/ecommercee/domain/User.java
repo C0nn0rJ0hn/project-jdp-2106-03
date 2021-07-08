@@ -3,12 +3,12 @@ package com.kodilla.ecommercee.domain;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "USERS")
 public class User {
 
     private Long id;
     private String name;
-    private String lastname;
+    private String lastname;git status
     private String mail;
     private String phoneNumber;
     private String NIP;
