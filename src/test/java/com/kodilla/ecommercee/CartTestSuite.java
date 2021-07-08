@@ -49,13 +49,13 @@ public class CartTestSuite {
         List<Cart> carts = cartRepository.findAll();
 
         //Then
-        assertEquals(2, carts.size());
+        assertEquals(1, carts.size());
 
         //Cleanup
         cartRepository.delete(cart1);
     }
 
-
+    @Transactional
     @Test
     public void shouldPresentsElementsInEmptyCart() {
 
@@ -76,6 +76,7 @@ public class CartTestSuite {
 
     }
 
+    @Transactional
     @Test
     public void shouldAddProductsToCart() {
 
@@ -105,6 +106,7 @@ public class CartTestSuite {
 
     }
 
+    @Transactional
     @Test
     public void shouldPresentsProductsInCart() {
 
