@@ -2,93 +2,68 @@ package com.kodilla.ecommercee.controller;
 
 
 import com.kodilla.ecommercee.controller.exception.UserNotFoundException;
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.UserDto;
-import org.springframework.data.jpa.repository.Lock;
+import com.kodilla.ecommercee.mapper.UserMapper;
+import com.kodilla.ecommercee.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.LockModeType;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
 
-    List<UserDto> userList = new ArrayList<>();
+    @Autowired
+    private UserMapper mapper;
 
-    @PutMapping("lockUser")
-    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
-    public String  lockUser (@RequestParam Long userId) {
-        String out = ("User with ID " + userId + " is blocked");
-        return out;
-    }
+    @Autowired
+    private UserService service;
 
-    @PostMapping("createUser")
+    @PostMapping(value = "/createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDto userDto) {
-        userList.add(userDto);
+        service.saveUser(mapper.mapToUser(userDto));
     }
 
-    @PostMapping("generateKey")
-    public String generateKey(@RequestBody UserDto userDto) {
-        String uuid = UUID.randomUUID().toString();
-        return uuid;
-    }
-
-    @GetMapping("getUsers")
+    @GetMapping(value = "/getUsers")
     public List<UserDto> getUsers() {
-        //Fixed return object for test purpose only
-        userList.add(new UserDto(1L, "Jan", "Kowalski", "jankowalski@eu.pl", "+48555222111", "88051202587"));
-        userList.add(new UserDto(2L, "Anna", "Baziak", "annabaziak@eu.pl", "+48555222333", "870303225147"));
-        userList.add(new UserDto(3L, "Lech", "Zimny", "lechzimny@eu.pl", "+48555222444", "75020414231"));
-        userList.add(new UserDto(4L, "Marta", "Nowak", "martanowak@eu.pl", "+48555222784", "92040512456"));
-        return userList;
+        List<User> users = service.getUsers();
+        return mapper.mapToUserDtoList(users);
     }
 
-    @GetMapping("getUser")
+    @GetMapping(value = "/getUser")
     public UserDto getUser(@RequestParam Long userId) throws UserNotFoundException {
-        //Fixed return object for test purpose only
-        UserDto UserDto1 = new UserDto(1L, "Jan", "Kowalski", "jankowalski@eu.pl", "+48555222111", "88051202587");
-        UserDto UserDto2 = new UserDto(2L, "Anna", "Baziak", "annabaziak@eu.pl", "+48555222333", "870303225147");
-        UserDto UserDto3 = new UserDto(3L, "Lech", "Zimny", "lechzimny@eu.pl", "+48555222444", "75020414231");
-        UserDto UserDto4 = new UserDto(4L, "Marta", "Nowak", "martanowak@eu.pl", "+48555222784", "92040512456");
-        UserDto returnUserDto = new UserDto();
-
-        if (userId == 0) returnUserDto = UserDto1;
-        if (userId == 1) returnUserDto = UserDto2;
-        if (userId == 2) returnUserDto = UserDto3;
-        if (userId == 3) returnUserDto = UserDto4;
-        if (userId > 3) throw new UserNotFoundException();
-
-
-        return returnUserDto;
+        User user = service.getUser(userId).orElseThrow(UserNotFoundException::new);
+        return mapper.mapToUserDto(user);
     }
 
-    @DeleteMapping("deleteUser")
+    @DeleteMapping(value = "/deleteUser")
     public void deleteUser(@RequestParam Long userId) {
-        userList.removeIf(u -> u.getId() == userId);
-
+        service.deleteUser(userId);
     }
 
-    @PutMapping("updateUser")
-    public UserDto updateUser(@RequestBody UserDto UserDto) {
-        //Fixed return object for test purpose only
-        UserDto returnUserDto = new UserDto();
-        UserDto UserDto1 = new UserDto(1L, "Jan", "Kowalski", "jankowalski@eu.pl", "+48555222111", "88051202587");
-        UserDto UserDto2 = new UserDto(2L, "Anna", "Baziak", "annabaziak@eu.pl", "+48555222333", "870303225147");
-        UserDto UserDto3 = new UserDto(3L, "Lech", "Zimny", "lechzimny@eu.pl", "+48555222444", "75020414231");
-        UserDto UserDto4 = new UserDto(4L, "Marta", "Nowak", "martanowak@eu.pl", "+48555222784", "92040512456");
-
-
-        if (UserDto.equals(UserDto1)) returnUserDto = UserDto1;
-        if (UserDto.equals(UserDto2)) returnUserDto = UserDto2;
-        if (UserDto.equals(UserDto3)) returnUserDto = UserDto3;
-        if (UserDto.equals(UserDto4)) returnUserDto = UserDto4;
-
-        return returnUserDto;
+    @PutMapping(value = "/updateUser")
+    public UserDto updateUser(@RequestBody UserDto userDto) {
+        User user = mapper.mapToUser(userDto);
+        User savedUser = service.saveUser(user);
+        return mapper.mapToUserDto(savedUser);
     }
 
+    @PatchMapping(value = "/blockUser")
+    public void blockUser(@RequestParam Long userId) {
+        service.blockUser(userId);
+    }
 
+    @PatchMapping(value = "/unblockUser")
+    public void unblockUser(@RequestParam Long userId) {
+        service.unblockUser(userId);
+    }
 
+    @PatchMapping(value = "/generateRandomKey")
+    public UserDto generateRandomKey(@RequestParam Long userId) {
+        return mapper.mapToUserDto(service.generateRandomKey(userId));
+    }
 }

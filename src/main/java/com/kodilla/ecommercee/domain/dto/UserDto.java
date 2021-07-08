@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain.dto;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDto {
 
@@ -10,14 +11,25 @@ public class UserDto {
     private String mail;
     private String phoneNumber;
     private String NIP;
+    private boolean isBlocked;
+    private String generatedRandomKey;
+    private String keyExpirationDate;
+    private Long cartId;
+    private List<Long> ordersId = new ArrayList<>();
 
-    public UserDto(Long id, String name, String lastname, String mail, String phoneNumber, String NIP) {
+    public UserDto(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked,
+                   String generatedRandomKey, String keyExpirationDate, Long cartId, List<Long> ordersId) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
         this.phoneNumber = phoneNumber;
         this.NIP = NIP;
+        this.isBlocked = isBlocked;
+        this.generatedRandomKey = generatedRandomKey;
+        this.keyExpirationDate = keyExpirationDate;
+        this.cartId = cartId;
+        this.ordersId = ordersId;
     }
 
     public UserDto(String name, String lastname, String mail, String phoneNumber, String NIP) {
@@ -53,6 +65,26 @@ public class UserDto {
 
     public String getNIP() {
         return NIP;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public String getGeneratedRandomKey() {
+        return generatedRandomKey;
+    }
+
+    public String getKeyExpirationDate() {
+        return keyExpirationDate;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public List<Long> getOrdersId() {
+        return ordersId;
     }
 
     @Override

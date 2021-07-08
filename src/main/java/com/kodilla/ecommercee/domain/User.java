@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "USERS")
@@ -13,11 +14,28 @@ public class User {
     private String phoneNumber;
     private String NIP;
     private boolean isBlocked;
+    private String generatedRandomKey;
+    private String keyExpirationDate;
     private Cart cart;
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
-    public User(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked, Cart cart, List<Order> orders) {
+
+    public User(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked,
+                String generatedRandomKey, Cart cart, List<Order> orders) {
         this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.NIP = NIP;
+        this.isBlocked = isBlocked;
+        this.generatedRandomKey = generatedRandomKey;
+        this.cart = cart;
+        this.orders = orders;
+    }
+  
+    public User(String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked, Cart cart, List<Order> orders) {
+
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
@@ -28,8 +46,7 @@ public class User {
         this.orders = orders;
     }
 
-    public User(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked) {
-        this.id = id;
+    public User(String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked) {
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
@@ -116,7 +133,25 @@ public class User {
         isBlocked = blocked;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column(name = "GENERATED_RANDOM_KEY")
+    public String getGeneratedRandomKey() {
+        return generatedRandomKey;
+    }
+
+    public void setGeneratedRandomKey(String generatedRandomKey) {
+        this.generatedRandomKey = generatedRandomKey;
+    }
+
+    @Column(name = "KEY_EXPIRATION_DATE")
+    public String getKeyExpirationDate() {
+        return keyExpirationDate;
+    }
+
+    public void setKeyExpirationDate(String keyExpirationDate) {
+        this.keyExpirationDate = keyExpirationDate;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CART_ID")
     public Cart getCart() {
         return cart;
@@ -128,7 +163,6 @@ public class User {
 
     @OneToMany(
             targetEntity = Order.class,
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user"
     )

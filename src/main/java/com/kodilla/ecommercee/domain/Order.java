@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -22,6 +21,20 @@ public class Order {
     private String addressBuildNumber;
     private Cart cart;
     private User user;
+
+    public Order( LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
+        this.orderDate = orderDate;
+        this.orderNumber = orderNumber;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderIsCompleted = orderIsCompleted;
+        this.orderIsPaid = orderIsPaid;
+        this.orderIsSend = orderIsSend;
+        this.addressCountry = addressCountry;
+        this.addressCity = addressCity;
+        this.addressPost = addressPost;
+        this.addressStreet = addressStreet;
+        this.addressBuildNumber = addressBuildNumber;
+    }
 
     public Order(Long id, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
         this.id = id;
@@ -48,7 +61,7 @@ public class Order {
         return id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CART_ID")
     public Cart getCart() {
         return cart;

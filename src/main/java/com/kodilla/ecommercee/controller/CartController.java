@@ -56,9 +56,9 @@ public class CartController {
         List<ProductDto> cartContains = new ArrayList<>();
         if(cartId < 10 ) {
             cartContains.add(new ProductDto(1L, "Xbox", "Xbox shortDesc", "Xbox longDesc longDesc", 6500.00,
-                    3, ProductCondition.NEW, 20.00, true));
+                    3, ProductCondition.NEW, 20.00, true, 5L));
             cartContains.add(new ProductDto(2L, "T-shirt", "T-shirt shortDesc", "T-shirt long longDesc", 55.99,
-                    3, ProductCondition.NEW, 20.00, true));
+                    3, ProductCondition.NEW, 20.00, true, 6L));
         }
 
         return cartContains;
@@ -71,7 +71,7 @@ public class CartController {
         List<ProductDto> resultAfterAdd  = cartContains(cartId);
 
         resultAfterAdd.add(new ProductDto(productId, "Convers", "Convers shortDesc", "Convers long longDesc", 155.99,
-                22, ProductCondition.NEW, 2.00, true));
+                22, ProductCondition.NEW, 2.00, true, 7L));
         return resultAfterAdd;
     }
 

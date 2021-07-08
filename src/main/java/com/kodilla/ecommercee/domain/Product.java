@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +61,6 @@ public class Product {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "PRODUCT_ID", unique = true)
     public Long getId() {
         return id;
@@ -93,7 +91,8 @@ public class Product {
         return quantityOnStore;
     }
 
-    @Column(name = "PRODUCT_CONDITION")
+    @Column(name = "PRODUCT_CONDITION", columnDefinition = "enum('NEW', 'OUTLET')")
+    @Enumerated(EnumType.STRING)
     public ProductCondition getProductCondition() {
         return productCondition;
     }
@@ -114,7 +113,7 @@ public class Product {
         return group;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(mappedBy = "products")
     public List<Cart> getCarts() {
         return carts;
     }
