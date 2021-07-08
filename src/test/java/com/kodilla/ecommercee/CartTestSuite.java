@@ -7,6 +7,7 @@ import com.kodilla.ecommercee.domain.ProductCondition;
 import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
+import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,8 @@ public class CartTestSuite {
     @Autowired
     private OrderRepository orderRepository;
 
+
+    @Transactional
     @Test
     public void shouldCreateCart() {
 
@@ -46,11 +49,12 @@ public class CartTestSuite {
         List<Cart> carts = cartRepository.findAll();
 
         //Then
-        assertEquals(1, carts.size());
+        assertEquals(2, carts.size());
 
         //Cleanup
         cartRepository.delete(cart1);
     }
+
 
     @Test
     public void shouldPresentsElementsInEmptyCart() {
@@ -102,7 +106,7 @@ public class CartTestSuite {
     }
 
     @Test
-    public void shouldPresentsElementsInCart() {
+    public void shouldPresentsProductsInCart() {
 
         //Given
         List<Product> products = new ArrayList<>();
@@ -202,4 +206,5 @@ public class CartTestSuite {
         productRepository.delete(product1);
         productRepository.delete(product2);
     }
+
 }

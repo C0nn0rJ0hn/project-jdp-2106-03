@@ -38,6 +38,16 @@ public class User {
         this.isBlocked = isBlocked;
     }
 
+    public User(String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked, Cart cart) {
+        this.name = name;
+        this.lastname = lastname;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.NIP = NIP;
+        this.isBlocked = isBlocked;
+        this.cart = cart;
+    }
+
     public User() {
     }
 
