@@ -33,7 +33,6 @@ public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
     @Column(name = "GROUP_ID", unique = true)
     public Long getId() {
         return id;
@@ -47,7 +46,6 @@ public class Group {
     @OneToMany(
             targetEntity = Product.class,
             mappedBy = "group",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     public List<Product> getProducts() {

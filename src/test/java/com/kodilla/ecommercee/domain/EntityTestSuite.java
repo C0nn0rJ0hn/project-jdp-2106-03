@@ -28,7 +28,7 @@ public class EntityTestSuite {
     @Test
     public void userEntityTest(){
         //G
-        User userAdam = new User(1L, "Adam", "Test", "som@mail.cc", "+48 555 55 55", "888-888-88-88", false, null,null);
+        User userAdam = new User("Adam", "Test", "som@mail.cc", "+48 555 55 55", "888-888-88-88", false, null,null);
         userRepository.save(userAdam);
 
         //W
