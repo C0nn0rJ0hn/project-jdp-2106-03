@@ -163,40 +163,40 @@ public class CartTestSuite {
     }
 
 
-//    @Transactional
-//    @Test
-//    public void shouldCreateOrderBasedOnCart() {
-//
-//        //Given
-//        Product product1 = new Product("Product1", "Product1_Short", "Product1_Long",
-//                100, 10, ProductCondition.NEW, 5, true);
-//        Product product2 = new Product("Product2", "Product2_Short", "Product2_Long",
-//                100, 10, ProductCondition.NEW, 5, true);
-//
-//        Cart cart1 = new Cart(new BigDecimal("200"), true);
-//
-//        cart1.getProducts().add(product1);
-//        cart1.getProducts().add(product2);
-//
-//        productRepository.save(product1);
-//        productRepository.save(product2);
-//        cartRepository.save(cart1);
-//
-//        Order order = new Order();
-//
-//        //When
-//        orderRepository.save(order);
-//        order.setCart(cart1);
-//        List<Product> productsInCart = order.getCart().getProducts();
-//
-//
-//        //Then
-//        Assert.assertEquals(2, productsInCart.size());
-//
-//        //Cleanup
-//        orderRepository.delete(order);
-//        cartRepository.delete(cart1);
-//        productRepository.delete(product1);
-//        productRepository.delete(product2);
-//    }
+    @Transactional
+    @Test
+    public void shouldCreateOrderBasedOnCart() {
+
+        //Given
+        Product product1 = new Product("Product1", "Product1_Short", "Product1_Long",
+                100, 10, ProductCondition.NEW, 5, true);
+        Product product2 = new Product("Product2", "Product2_Short", "Product2_Long",
+                100, 10, ProductCondition.NEW, 5, true);
+
+        Cart cart1 = new Cart(new BigDecimal("200"), true);
+
+        cart1.getProducts().add(product1);
+        cart1.getProducts().add(product2);
+
+        productRepository.save(product1);
+        productRepository.save(product2);
+        cartRepository.save(cart1);
+
+        Order order = new Order();
+
+        //When
+        order.setCart(cart1);
+        orderRepository.save(order);
+        List<Product> productsInCart = order.getCart().getProducts();
+
+
+        //Then
+        Assert.assertEquals(2, productsInCart.size());
+
+        //Cleanup
+        orderRepository.delete(order);
+        cartRepository.delete(cart1);
+        productRepository.delete(product1);
+        productRepository.delete(product2);
+    }
 }
