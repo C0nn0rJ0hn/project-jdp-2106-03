@@ -19,6 +19,7 @@ public class User {
     private Cart cart;
     private List<Order> orders = new ArrayList<>();
 
+
     public User(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked,
                 String generatedRandomKey, Cart cart, List<Order> orders) {
         this.id = id;
@@ -32,8 +33,9 @@ public class User {
         this.cart = cart;
         this.orders = orders;
     }
-
+  
     public User(String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked, Cart cart, List<Order> orders) {
+
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
@@ -52,7 +54,7 @@ public class User {
         this.NIP = NIP;
         this.isBlocked = isBlocked;
     }
-
+  
     public User() {
     }
 
