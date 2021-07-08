@@ -117,6 +117,7 @@ public class ProductTestSuite {
         productRepository.delete(product2);
     }
 
+    @Transactional
     @Test
     public void shouldAddProductToCart() {
 
