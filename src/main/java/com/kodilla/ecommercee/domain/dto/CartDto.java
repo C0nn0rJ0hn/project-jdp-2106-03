@@ -1,14 +1,43 @@
 package com.kodilla.ecommercee.domain.dto;
 
+import com.kodilla.ecommercee.domain.Product;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class CartDto {
     private long cartId;
     private BigDecimal cartSum;
     private boolean isCartClosed;
+    private List<Product> products = new ArrayList<>();
+    private long productId;
 
-    public CartDto(int id, BigDecimal cartSum, boolean isCartClosed) {
-        this.cartId = id;
+    public CartDto(long cartId, BigDecimal cartSum, boolean isCartClosed, List<Product> products) {
+        this.cartId = cartId;
+        this.cartSum = cartSum;
+        this.isCartClosed = isCartClosed;
+        this.products = products;
+    }
+
+    public CartDto(long cartId, BigDecimal cartSum, boolean isCartClosed, long productId) {
+        this.cartId = cartId;
+        this.cartSum = cartSum;
+        this.isCartClosed = isCartClosed;
+        this.productId = productId;
+    }
+
+    public CartDto(long cartId, BigDecimal cartSum, boolean isCartClosed, List<Product> products, long productId) {
+        this.cartId = cartId;
+        this.cartSum = cartSum;
+        this.isCartClosed = isCartClosed;
+        this.products = products;
+        this.productId = productId;
+    }
+
+    public CartDto(long cartId, BigDecimal cartSum, boolean isCartClosed) {
+        this.cartId = cartId;
         this.cartSum = cartSum;
         this.isCartClosed = isCartClosed;
     }
@@ -23,6 +52,14 @@ public class CartDto {
 
     public boolean isCartClosed() {
         return isCartClosed;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     @Override
