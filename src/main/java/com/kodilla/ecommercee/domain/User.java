@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "USERS")
@@ -16,7 +17,7 @@ public class User {
     private String generatedRandomKey;
     private String keyExpirationDate;
     private Cart cart;
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public User(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked,
                 String generatedRandomKey, Cart cart, List<Order> orders) {

@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
@@ -14,7 +15,7 @@ public class UserDto {
     private String generatedRandomKey;
     private String keyExpirationDate;
     private Long cartId;
-    private List<Long> ordersId;
+    private List<Long> ordersId = new ArrayList<>();
 
     public UserDto(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked,
                    String generatedRandomKey, String keyExpirationDate, Long cartId, List<Long> ordersId) {
