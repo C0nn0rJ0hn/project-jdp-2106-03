@@ -12,10 +12,10 @@ public class ProductDto {
     private ProductCondition productCondition;
     private double productWeight;
     private boolean stillOnSale;
+    private Long groupId;
 
-    public ProductDto(Long id, String name, String shortDesc, String longDesc, double productPrice,
-                      int quantityOnStore, ProductCondition productCondition, double productWeight,
-                      boolean stillOnSale) {
+    public ProductDto(Long id, String name, String shortDesc, String longDesc, double productPrice, int quantityOnStore,
+                      ProductCondition productCondition, double productWeight, boolean stillOnSale, Long groupId) {
         this.id = id;
         this.name = name;
         this.shortDesc = shortDesc;
@@ -25,6 +25,7 @@ public class ProductDto {
         this.productCondition = productCondition;
         this.productWeight = productWeight;
         this.stillOnSale = stillOnSale;
+        this.groupId = groupId;
     }
 
     public Long getId() {
@@ -61,5 +62,9 @@ public class ProductDto {
 
     public boolean isStillOnSale() {
         return stillOnSale;
+    }
+
+    public Long getGroupId() {
+        return groupId;
     }
 }
