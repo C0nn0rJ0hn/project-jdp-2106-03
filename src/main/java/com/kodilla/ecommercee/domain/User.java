@@ -8,7 +8,7 @@ public class User {
 
     private Long id;
     private String name;
-    private String lastname;git status
+    private String lastname;
     private String mail;
     private String phoneNumber;
     private String NIP;
