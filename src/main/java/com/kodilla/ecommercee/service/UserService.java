@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.service;
 
+import com.kodilla.ecommercee.controller.exception.UserNotFoundException;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,21 +34,21 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    public void blockUser(final Long userId) {
+    public void blockUser(final Long userId) throws UserNotFoundException {
         Optional<User> userToBeBlocked = userRepository.findById(userId);
-        User blockedUser = userToBeBlocked.get();
+        User blockedUser = userToBeBlocked.orElseThrow(UserNotFoundException::new);
         blockedUser.setBlocked(true);
         userRepository.save(blockedUser);
     }
 
-    public void unblockUser(final Long userId) {
+    public void unblockUser(final Long userId) throws UserNotFoundException{
         Optional<User> userToBeUnblocked = userRepository.findById(userId);
-        User unblockedUser = userToBeUnblocked.get();
+        User unblockedUser = userToBeUnblocked.orElseThrow(UserNotFoundException::new);
         unblockedUser.setBlocked(false);
         userRepository.save(unblockedUser);
     }
 
-    public User generateRandomKey(final Long userId) {
+    public User generateRandomKey(final Long userId) throws UserNotFoundException {
         final String code = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random rnd = new Random();
 
@@ -57,7 +58,7 @@ public class UserService {
         }
 
         Optional<User> userToHaveKey = userRepository.findById(userId);
-        User userWithKey = userToHaveKey.get();
+        User userWithKey = userToHaveKey.orElseThrow(UserNotFoundException::new);
         userWithKey.setGeneratedRandomKey(sb.toString());
 
         LocalDateTime keyExpireDate = LocalDateTime.now().plusHours(1);
