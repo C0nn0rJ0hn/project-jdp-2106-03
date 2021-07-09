@@ -1,7 +1,9 @@
 package com.kodilla.ecommercee;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
+import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.Assert;
@@ -10,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,6 +29,8 @@ public class OrderTestSuite {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
 
     @Test
     public void shouldAddOrder() {
@@ -203,5 +208,38 @@ public class OrderTestSuite {
         //Cleanup
         orderRepository.delete(order);
         userRepository.delete(user);
+    }
+
+    @Transactional
+    @Test
+    public void shouldCartBePresentWhenOrderIsDeleted() {
+
+        //Given
+        Cart cart = new Cart(new BigDecimal("500"), true);
+        cartRepository.save(cart);
+
+        Order order = new Order(
+                LocalDate.of(2021, 5, 5),
+                "FV/2020-05-05/001",
+                new BigDecimal(15.55),
+                false,
+                false,
+                false,
+                "Poland",
+                "Rzeszów",
+                "08-555",
+                "Morska",
+                "90210/58"
+        );
+
+        order.setCart(cart);
+        orderRepository.save(order);
+        orderRepository.delete(order);
+
+        //Then
+        Assert.assertEquals(1, cartRepository.findAll().size());
+
+        //Cleanup
+        cartRepository.delete(cart);
     }
 }
