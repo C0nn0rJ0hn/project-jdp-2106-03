@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderTestSuite {
@@ -210,7 +211,6 @@ public class OrderTestSuite {
         userRepository.delete(user);
     }
 
-    @Transactional
     @Test
     public void shouldCartBePresentWhenOrderIsDeleted() {
 
@@ -241,5 +241,68 @@ public class OrderTestSuite {
 
         //Cleanup
         cartRepository.delete(cart);
+    }
+
+    @Test
+    public void shouldAddCartToOrder() {
+
+        //Given
+        Cart cart = new Cart(new BigDecimal("100"), false);
+        cartRepository.save(cart);
+
+        Order order = new Order();
+
+        //When
+        order.setCart(cart);
+        orderRepository.save(order);
+
+        //Then
+        Assert.assertEquals(new BigDecimal("100"), order.getCart().getCartSum());
+
+        //Cleanup
+        orderRepository.delete(order);
+        cartRepository.delete(cart);
+    }
+
+    @Test
+    public void shouldUserBePresentWhenOrderIsDeleted() {
+
+        //Given
+        User user = new User();
+        userRepository.save(user);
+
+        Order order = new Order();
+        order.setUser(user);
+        orderRepository.save(order);
+
+        //When
+        orderRepository.delete(order);
+
+        //Then
+        Assert.assertEquals(1, userRepository.findAll().size());
+
+        //Cleanup
+        userRepository.delete(user);
+    }
+
+    @Test
+    public void shouldOrderBePresentWhenUserIsDeleted() {
+
+        //Given
+        User user = new User();
+        userRepository.save(user);
+
+        Order order = new Order();
+        order.setUser(user);
+        orderRepository.save(order);
+
+        //When
+        userRepository.delete(user);
+
+        //Then
+        Assert.assertEquals(1,orderRepository.findAll().size());
+
+        //Cleanup
+        orderRepository.delete(order);
     }
 }
