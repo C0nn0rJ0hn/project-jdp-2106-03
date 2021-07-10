@@ -13,6 +13,11 @@ public class Group {
     private String name;
     private List<Product> products = new ArrayList<>();
 
+    public Group(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Group(Long id, String name, List<Product> products) {
         this.id = id;
         this.name = name;

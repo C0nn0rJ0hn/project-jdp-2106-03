@@ -53,17 +53,17 @@ public class UserController {
     }
 
     @PatchMapping(value = "/blockUser")
-    public void blockUser(@RequestParam Long userId) {
+    public void blockUser(@RequestParam Long userId) throws UserNotFoundException {
         service.blockUser(userId);
     }
 
     @PatchMapping(value = "/unblockUser")
-    public void unblockUser(@RequestParam Long userId) {
+    public void unblockUser(@RequestParam Long userId) throws UserNotFoundException{
         service.unblockUser(userId);
     }
 
     @PatchMapping(value = "/generateRandomKey")
-    public UserDto generateRandomKey(@RequestParam Long userId) {
+    public UserDto generateRandomKey(@RequestParam Long userId) throws UserNotFoundException{
         return mapper.mapToUserDto(service.generateRandomKey(userId));
     }
 }
