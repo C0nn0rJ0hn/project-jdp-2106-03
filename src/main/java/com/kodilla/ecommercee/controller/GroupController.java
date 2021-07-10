@@ -1,9 +1,15 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.controller.exception.GroupNotFoundException;
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.dto.GroupDto;
+import com.kodilla.ecommercee.mapper.GroupMapper;
+import com.kodilla.ecommercee.service.GroupService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -12,56 +18,43 @@ import java.util.List;
 
 public class GroupController {
 
+    private final GroupService groupService;
+    private final GroupMapper groupMapper;
+
+    @Autowired
+    public GroupController(GroupService groupService, GroupMapper groupMapper) {
+        this.groupService = groupService;
+        this.groupMapper = groupMapper;
+    }
+
     @GetMapping("getGroups")
     public List<GroupDto> getGroups() {
-        //Fixed return object for test purpose only
-        List<GroupDto> groupList = new ArrayList<>();
-        groupList.add(new GroupDto(1L, "Ubrania"));
-        groupList.add(new GroupDto(2L, "Dodatki"));
-        groupList.add(new GroupDto(3L, "Biżuteria"));
-        groupList.add(new GroupDto(4L, "Obuwie"));
-        return groupList;
+        List<Group> groups = groupService.getAllGroups();
+        return groupMapper.mapToGroupDtoList(groups);
     }
 
     @GetMapping("getGroup")
-    public GroupDto getGroup(@RequestParam Long taskId) {
-        //Fixed return object for test purpose only
-        GroupDto groupDto1 = new GroupDto(1L, "Ubrania");
-        GroupDto groupDto2 = new GroupDto(2L, "Dodatki");
-        GroupDto groupDto3 = new GroupDto(3L, "Biżuteria");
-        GroupDto groupDto4 = new GroupDto(4L, "Obuwie");
-        GroupDto returnGroupDto = new GroupDto(0L, "Brak grupy");
-
-        if (taskId == 0) returnGroupDto = groupDto1;
-        if (taskId == 1) returnGroupDto = groupDto2;
-        if (taskId == 2) returnGroupDto = groupDto3;
-        if (taskId == 3) returnGroupDto = groupDto4;
-
-        return returnGroupDto;
+    public GroupDto getGroup(@RequestParam Long id) throws GroupNotFoundException {
+        return groupMapper.mapToGroupDto(
+                groupService.getGroup(id).orElseThrow(GroupNotFoundException::new)
+        );
     }
 
     @DeleteMapping("deleteGroup")
-    public void deleteGroup(@RequestParam Long taskId) {
+    public void deleteGroup(@RequestParam Long id) {
+        groupService.deleteGroup(id);
     }
 
     @PutMapping("updateGroup")
     public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
-        //Fixed return object for test purpose only
-        GroupDto returnGroupDto = new GroupDto(0L, "Brak grupy");
-        GroupDto groupDto1 = new GroupDto(1L, "Ubrania");
-        GroupDto groupDto2 = new GroupDto(2L, "Dodatki");
-        GroupDto groupDto3 = new GroupDto(3L, "Biżuteria");
-        GroupDto groupDto4 = new GroupDto(4L, "Obuwie");
-
-        if (groupDto.equals(groupDto1)) returnGroupDto = groupDto1;
-        if (groupDto.equals(groupDto2)) returnGroupDto = groupDto2;
-        if (groupDto.equals(groupDto3)) returnGroupDto = groupDto3;
-        if (groupDto.equals(groupDto4)) returnGroupDto = groupDto4;
-
-        return returnGroupDto;
+        Group group = groupMapper.mapToGroup(groupDto);
+        Group savedGroup = groupService.saveGroup(group);
+        return groupMapper.mapToGroupDto(savedGroup);
     }
 
-    @PostMapping("createGroup")
+    @PostMapping(value = "createGroup", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createGroup(@RequestBody GroupDto groupDto) {
+        Group group = groupMapper.mapToGroup(groupDto);
+        groupService.saveGroup(group);
     }
 }
