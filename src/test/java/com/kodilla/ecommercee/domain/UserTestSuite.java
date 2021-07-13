@@ -18,9 +18,10 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
+@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EntityTestSuite {
+public class UserTestSuite {
 
     public User userAdam = new User("Adam", "Test", "som0@mail.cc", "+48 555 55 55", "888-888-88-88", false, null,null);
     public User userBart = new User("Bart", "Test", "som2@mail.cc", "+48 555 55 55", "888-888-88-88", false, null,null);
@@ -35,9 +36,9 @@ public class EntityTestSuite {
     @Autowired
     public OrderRepository orderRepository;
 
-    @Transactional
+
     @Test
-    public void addPureUsersTestSuite(){
+    public void addPureUsers(){
         //G
         userRepository.save(userAdam);
         userRepository.save(userBart);
@@ -52,9 +53,9 @@ public class EntityTestSuite {
 
     }
 
-    @Transactional
+
     @Test
-    public void deletePureUserTestSuite(){
+    public void deletePureUser(){
 
         //G
         userRepository.save(userAdam);
@@ -73,9 +74,9 @@ public class EntityTestSuite {
         assertEquals(2, resultUserList.size() );
     }
 
-    @Transactional
+
     @Test
-    public void userWithOrderAddAndDeleteOrderTestSuite(){
+    public void userWithOrderAddAndDeleteOrder(){
         //G
 
 //        User Adam
@@ -155,9 +156,9 @@ public class EntityTestSuite {
         }
     }
 
-    @Transactional
+
     @Test
-    public void findUserByIdTestSuit(){
+    public void findUserById(){
         //W
         userRepository.save(userAdam);
         userRepository.save(userBart);
@@ -172,7 +173,6 @@ public class EntityTestSuite {
 
     }
 
-    @Transactional
     @Test
     public void userEntityAddUsersWitCartTest(){
 
