@@ -62,15 +62,15 @@ public class OrderDto {
         return orderTotalPrice;
     }
 
-    public boolean isOrderIsCompleted() {
+    public boolean isOrderCompleted() {
         return orderIsCompleted;
     }
 
-    public boolean getOrderIsPaid() {
+    public boolean isOrderPaid() {
         return orderIsPaid;
     }
 
-    public boolean isOrderIsSend() {
+    public boolean isOrderSend() {
         return orderIsSend;
     }
 

@@ -24,16 +24,16 @@ public class OrderMapper {
     private UserRepository userRepository;
 
 
-    public Order mapOrderToOrderDto(OrderDto orderDto){
+    public Order mapOrderDtoToOrder(OrderDto orderDto){
 
         return new Order(
                 orderDto.getId(),
                 orderDto.getOrderDate(),
                 orderDto.getOrderNumber(),
                 orderDto.getOrderTotalPrice(),
-                orderDto.isOrderIsCompleted(),
-                orderDto.isOrderIsSend(),
-                orderDto.isOrderIsSend(),
+                orderDto.isOrderCompleted(),
+                orderDto.isOrderPaid(),
+                orderDto.isOrderSend(),
                 orderDto.getAddressCountry(),
                 orderDto.getAddressCity(),
                 orderDto.getAddressPost(),

@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -23,15 +24,14 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping(value = "createOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public OrderDto createOrder(@RequestBody OrderDto orderDto){
-        orderService.saveOrder(orderMapper.mapOrderToOrderDto(orderDto));
-        return  null;
+    public void createOrder(@RequestBody OrderDto orderDto){
+        orderService.saveOrder(orderMapper.mapOrderDtoToOrder(orderDto));
     }
 
     @PutMapping(value = "updateOrder")
     public OrderDto updateOrder( @RequestParam OrderDto orderDto) throws OrderNotFoundException{
         if (orderService.findOrderById(orderDto.getId()).isPresent()){
-            Order returnOrder =  orderService.saveOrder(orderMapper.mapOrderToOrderDto(orderDto));
+            Order returnOrder =  orderService.saveOrder(orderMapper.mapOrderDtoToOrder(orderDto));
             return orderMapper.mapOrderToOrderDto(returnOrder) ;
         }
         throw new  OrderNotFoundException();
