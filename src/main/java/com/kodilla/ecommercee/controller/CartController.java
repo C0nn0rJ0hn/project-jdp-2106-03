@@ -1,12 +1,22 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.controller.exception.CartNotFoundException;
+import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.CartDto;
-import com.kodilla.ecommercee.domain.ProductCondition;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
+import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.CartService;
+import com.kodilla.ecommercee.service.OrderService;
+import com.kodilla.ecommercee.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -14,79 +24,93 @@ import java.util.List;
 @RequestMapping("/v1/cart")
 public class CartController {
 
+    @Autowired
+    private CartMapper cartMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
+
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping(value = "getCart")
-    public CartDto getCart(@RequestParam long cartId) throws CartNotFoundExeption {
+    public CartDto getCart(@RequestParam Long cartId) throws CartNotFoundException {
 
-//    fixed data  - return object for test purpose only
-        CartDto cartDto2 = new CartDto(1, new BigDecimal(55.3), false);
-        CartDto cartDto3 = new CartDto(1, new BigDecimal(55.3), false);
+        Cart cart = cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
 
-        if (cartId == 1L){ return new CartDto(1, new BigDecimal(55.3), false); }
-        if (cartId == 2L){ return new CartDto(2, new BigDecimal(185.35), false); }
-        if (cartId == 3L){ return new CartDto(3, new BigDecimal(333.00), false); }
-        if (cartId == 4L){ return new CartDto(4, new BigDecimal(2_499.99), false); }
-
-        throw new CartNotFoundExeption();
+        return cartMapper.mapToCartDto(cart);
     }
 
     @DeleteMapping(value = "deleteCart")
-    public boolean deleteCart(@RequestParam long cartId){
-
-        if (cartId <= 4L){ return true; }
-
-        return false;
+    public void deleteCart(@RequestParam Long cartId){
+        cartService.deleteCart(cartId);
     }
 
-    @PutMapping(value = "updateCart")
-    public CartDto updateCart(@RequestBody CartDto cartDto) throws CartNotFoundExeption {
+    @PutMapping(value = "updateCart", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public CartDto updateCart(@RequestBody CartDto cartDto) {
 
-        if (cartDto.getCartId() <= 4L){ return cartDto; }
+        Cart cart = cartMapper.mapToCart(cartDto);
+        Cart savedCart = cartService.saveCart(cart);
 
-        throw new CartNotFoundExeption();
+        return cartMapper.mapToCartDto(savedCart);
     }
 
-    @PostMapping(value = "createCart")
+    @PostMapping(value = "createCart", consumes = MediaType.APPLICATION_JSON_VALUE)
     public CartDto createCart(@RequestBody CartDto cartDto){
-        return cartDto;
+
+        Cart cart = cartService.saveCart(cartMapper.mapToCart(cartDto));
+
+        return cartMapper.mapToCartDto(cart);
     }
 
     @GetMapping(value = "cartContains")
-    public List<ProductDto> cartContains(@RequestParam long cartId){
+    public List<ProductDto> cartContains(@RequestParam Long cartId) throws CartNotFoundException {
 
-        List<ProductDto> cartContains = new ArrayList<>();
-        if(cartId < 10 ) {
-            cartContains.add(new ProductDto(1L, "Xbox", "Xbox shortDesc", "Xbox longDesc longDesc", 6500.00,
-                    3, ProductCondition.NEW, 20.00, true, 5L));
-            cartContains.add(new ProductDto(2L, "T-shirt", "T-shirt shortDesc", "T-shirt long longDesc", 55.99,
-                    3, ProductCondition.NEW, 20.00, true, 6L));
-        }
+        cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        List<Product> productsFromCart = cartService.getProductsFromCart(cartId);
 
-        return cartContains;
+        return productMapper.mapToProductDtoList(productsFromCart);
     }
 
     @PutMapping(value = "addProductToCart")
-    public List<ProductDto> addProductToCart(@RequestParam long cartId,
-                                             @RequestParam long productId){
+    public CartDto addProductToCart(@RequestParam Long cartId,
+                                    @RequestParam Long productId) throws CartNotFoundException {
 
-        List<ProductDto> resultAfterAdd  = cartContains(cartId);
+        cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        productService.getProductById(productId).get();
+        Cart activeCart = cartService.addProductToCart(productId, cartId);
 
-        resultAfterAdd.add(new ProductDto(productId, "Convers", "Convers shortDesc", "Convers long longDesc", 155.99,
-                22, ProductCondition.NEW, 2.00, true, 7L));
-        return resultAfterAdd;
+        return cartMapper.mapToCartDto(activeCart);
+
     }
 
-    @DeleteMapping(value = "removeProdFromCart")
-    public List<ProductDto> removeProductFromCart(@RequestParam long cartId,
-                                                  @RequestParam long productId){
+    @DeleteMapping(value = "removeProductFromCart")
+    public CartDto removeProductFromCart(@RequestParam Long cartId,
+                                         @RequestParam Long productId) throws CartNotFoundException {
 
-        List<ProductDto> resultAfterRemoveItems = cartContains(cartId);
-        resultAfterRemoveItems.remove((int)productId);
-        return resultAfterRemoveItems;
+        cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        productService.getProductById(productId).get();
+        Cart activeCart = cartService.deleteProductFromCart(productId, cartId);
+
+        return cartMapper.mapToCartDto(activeCart);
+
     }
 
     @PostMapping(value = "createOrder")
-    public boolean createOrder(@RequestParam long cartId){
-        System.out.println("Cart number: " + cartId + ", save as Order." );
-        return true;
+    public OrderDto createOrder(@RequestParam Long cartId) {
+
+        Order orderBasedOnCart = cartService.createOrderBasedOnCart(cartId);
+        orderService.saveOrder(orderBasedOnCart);
+
+        return orderMapper.mapOrderToOrderDto(orderBasedOnCart);
     }
 }

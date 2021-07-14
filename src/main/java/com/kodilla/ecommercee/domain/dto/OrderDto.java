@@ -66,7 +66,7 @@ public class OrderDto {
         return orderIsCompleted;
     }
 
-    public boolean getOrderIsPaid() {
+    public boolean isOrderIsPaid() {
         return orderIsPaid;
     }
 

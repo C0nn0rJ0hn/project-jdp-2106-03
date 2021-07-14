@@ -1,16 +1,23 @@
 package com.kodilla.ecommercee.domain.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartDto {
     private long cartId;
     private BigDecimal cartSum;
     private boolean isCartClosed;
+    private List<Long> products = new ArrayList<>();
 
-    public CartDto(int id, BigDecimal cartSum, boolean isCartClosed) {
-        this.cartId = id;
+    public CartDto(long cartId, BigDecimal cartSum, boolean isCartClosed, List<Long> products) {
+        this.cartId = cartId;
         this.cartSum = cartSum;
         this.isCartClosed = isCartClosed;
+        this.products = products;
+    }
+
+    public CartDto() {
     }
 
     public long getCartId() {
@@ -23,6 +30,10 @@ public class CartDto {
 
     public boolean isCartClosed() {
         return isCartClosed;
+    }
+
+    public List<Long> getProducts() {
+        return products;
     }
 
     @Override
