@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain.dto;
 
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.ProductCondition;
 
 public class ProductDto {
@@ -12,10 +13,10 @@ public class ProductDto {
     private ProductCondition productCondition;
     private double productWeight;
     private boolean stillOnSale;
-    private Long groupId;
+    private Product groupId;
 
     public ProductDto(Long id, String name, String shortDesc, String longDesc, double productPrice, int quantityOnStore,
-                      ProductCondition productCondition, double productWeight, boolean stillOnSale, Long groupId) {
+                      ProductCondition productCondition, double productWeight, boolean stillOnSale, Product groupId) {
         this.id = id;
         this.name = name;
         this.shortDesc = shortDesc;
@@ -64,7 +65,7 @@ public class ProductDto {
         return stillOnSale;
     }
 
-    public Long getGroupId() {
+    public Product getGroupId() {
         return groupId;
     }
 }

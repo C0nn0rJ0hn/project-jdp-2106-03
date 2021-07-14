@@ -29,13 +29,13 @@ public class ProductController {
     }
 
     @GetMapping(value = "/getProduct")
-    public ProductDto getProduct(@RequestParam Long productId) throws ProductNotFoundException {
+    public ProductDto getProduct(@RequestParam java.lang.Long productId) throws ProductNotFoundException {
 
         return mapper.mapToProductDto(service.getProductById(productId).orElseThrow(ProductNotFoundException::new));
     }
 
     @DeleteMapping(value = "/deleteProduct")
-    public void deleteProduct(@RequestParam Long productId) {
+    public void deleteProduct(@RequestParam java.lang.Long productId) {
         service.deleteProductById(productId);
     }
 

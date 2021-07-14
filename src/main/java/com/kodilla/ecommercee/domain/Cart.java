@@ -4,11 +4,12 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity(name = "CARTS")
 public class Cart {
 
-    private Long id;
+    private java.lang.Long id;
     private BigDecimal cartSum;
     private boolean isCartClosed;
     private List<Product> products = new ArrayList<>();
@@ -18,30 +19,34 @@ public class Cart {
         this.isCartClosed = isCartClosed;
     }
 
-    public Cart(Long id, BigDecimal cartSum, boolean isCartClosed) {
+    public Cart(java.lang.Long id, BigDecimal cartSum, boolean isCartClosed) {
         this.id = id;
         this.cartSum = cartSum;
         this.isCartClosed = isCartClosed;
     }
 
-    public Cart(Long id, BigDecimal cartSum, boolean isCartClosed, List<Product> products) {
+    public Cart(java.lang.Long id, BigDecimal cartSum, boolean isCartClosed, List<Product> products) {
         this.id = id;
         this.cartSum = cartSum;
         this.isCartClosed = isCartClosed;
         this.products = products;
     }
 
+
     public Cart() {
+    }
+
+    public Cart(long id, BigDecimal cartSum, boolean cartClosed, List<Product> products, Optional<Product> byId) {
     }
 
     @Id
     @Column(name = "CART_ID", unique = true)
     @GeneratedValue
-    public Long getId() {
+    public java.lang.Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(java.lang.Long id) {
         this.id = id;
     }
 
@@ -73,7 +78,9 @@ public class Cart {
         return products;
     }
 
+
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
 }

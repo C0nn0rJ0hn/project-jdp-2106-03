@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Long> {
+public interface ProductRepository extends CrudRepository<Product, java.lang.Long> {
 
     @Override
     Product save(Product product);
@@ -19,8 +19,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findAll();
 
     @Override
-    Optional<Product> findById(Long id);
+    Optional<Product> findById(java.lang.Long id);
 
-    void deleteById(Long id);
+    void deleteById(java.lang.Long id);
 
 }

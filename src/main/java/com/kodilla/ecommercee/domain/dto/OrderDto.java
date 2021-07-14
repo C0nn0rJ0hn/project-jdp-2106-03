@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 public class OrderDto {
 
-    private final long id;
-    private final long userId;
-    private final long cartId;
-    private final LocalDate orderDate;
-    private final String orderNumber;
+    private Long id;
+    private Long userId;
+    private Long cartId;
+    private  LocalDate orderDate;
+    private String orderNumber;
     private BigDecimal orderTotalPrice;
     private boolean orderIsCompleted;
     private boolean orderIsPaid;
@@ -21,7 +21,7 @@ public class OrderDto {
     private String addressBuildNumber;
 
 
-    public OrderDto(long id, long userId, long cartId, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
+    public OrderDto(Long id, Long userId, Long cartId, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
         this.id = id;
         this.userId = userId;
         this.cartId = cartId;
@@ -38,15 +38,15 @@ public class OrderDto {
         this.addressBuildNumber = addressBuildNumber;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public long getCartId() {
+    public Long getCartId() {
         return cartId;
     }
 

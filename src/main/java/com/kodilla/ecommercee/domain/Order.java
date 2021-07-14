@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Entity(name = "ORDERS")
 public class Order {
 
-    private  Long id;
+    private Long id;
     private  LocalDate orderDate;
     private  String orderNumber;
     private BigDecimal orderTotalPrice;
@@ -22,7 +22,8 @@ public class Order {
     private Cart cart;
     private User user;
 
-    public Order( LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
+
+    public Order(LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
         this.orderDate = orderDate;
         this.orderNumber = orderNumber;
         this.orderTotalPrice = orderTotalPrice;
@@ -53,6 +54,8 @@ public class Order {
 
     public Order() {
     }
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

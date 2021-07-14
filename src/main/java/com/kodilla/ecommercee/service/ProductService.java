@@ -22,11 +22,11 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProductById(final Long productId) {
+    public Optional<Product> getProductById(final java.lang.Long productId) {
         return  productRepository.findById(productId);
     }
 
-    public void deleteProductById(final Long productId) {
+    public void deleteProductById(final java.lang.Long productId) {
         productRepository.deleteById(productId);
     }
 }

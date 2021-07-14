@@ -118,7 +118,7 @@ public class Product {
         return carts;
     }
 
-    public void setId(Long id) {
+    public void setId(java.lang.Long id) {
         this.id = id;
     }
 
