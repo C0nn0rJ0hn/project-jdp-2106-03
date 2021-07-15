@@ -65,5 +65,4 @@ public class OrderMapper {
                 .map(this::mapOrderToOrderDto)
                 .collect(Collectors.toList());
     }
-
 }
