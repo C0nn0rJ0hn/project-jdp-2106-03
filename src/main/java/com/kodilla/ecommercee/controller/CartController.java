@@ -106,9 +106,10 @@ public class CartController {
     }
 
     @PostMapping(value = "createOrder")
-    public OrderDto createOrder(@RequestParam Long cartId) {
+    public OrderDto createOrder(@RequestParam Long cartId,
+                                @RequestParam Long userId) {
 
-        Order orderBasedOnCart = cartService.createOrderBasedOnCart(cartId);
+        Order orderBasedOnCart = cartService.createOrderBasedOnCart(cartId, userId);
         orderService.saveOrder(orderBasedOnCart);
 
         return orderMapper.mapOrderToOrderDto(orderBasedOnCart);

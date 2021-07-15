@@ -3,9 +3,11 @@ package com.kodilla.ecommercee.service;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
+import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class CartService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Cart saveCart(final Cart cart) {
 
@@ -72,13 +77,27 @@ public class CartService {
         return activeCart;
     }
 
-    public Order createOrderBasedOnCart (final Long cartId) {
+    public Order createOrderBasedOnCart (final Long cartId, final Long userId) {
 
         Optional<Cart> cartById = cartRepository.findById(cartId);
         Cart activeCart = cartById.get();
+
+        Optional<User> userById = userRepository.findById(userId);
+        User activeUser = userById.get();
+
         Order createdOrder = new Order();
         createdOrder.setCart(activeCart);
         createdOrder.setOrderIsCompleted(true);
+        createdOrder.setUser(activeUser);
+
+        activeCart.setCartClosed(true);
+
+        Cart newCart = new Cart();
+        activeUser.setCart(newCart);
+
+        userRepository.save(activeUser);
+        cartRepository.save(activeCart);
+        cartRepository.save(newCart);
 
         return orderRepository.save(createdOrder);
     }
