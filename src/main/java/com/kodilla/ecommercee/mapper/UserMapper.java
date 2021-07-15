@@ -1,9 +1,11 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.controller.exception.OrderNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.UserDto;
+import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,10 @@ public class UserMapper {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     public User mapToUser(final UserDto userDto) {
-        Cart cart = new Cart();
-        cart.setId(userDto.getCartId());
         return new User(
                 userDto.getId(),
                 userDto.getName(),
@@ -30,8 +33,8 @@ public class UserMapper {
                 userDto.getNIP(),
                 userDto.isBlocked(),
                 userDto.getGeneratedRandomKey(),
-                cart,
-                userDto.getOrdersId().stream().map(orderRepository::findById).map(Optional::get).collect(Collectors.toList())
+                cartRepository.findById(userDto.getCartId()).orElse(null),
+                userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(OrderNotFoundException::new)).collect(Collectors.toList())
         );
     }
 

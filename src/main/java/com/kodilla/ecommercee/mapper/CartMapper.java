@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.controller.exception.ProductNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.CartDto;
@@ -23,7 +24,7 @@ public class CartMapper {
                 cartDto.getCartId(),
                 cartDto.getCartSum(),
                 cartDto.isCartClosed(),
-                cartDto.getProducts().stream().map(productRepository::findById).map(Optional::get).collect(Collectors.toList())
+                cartDto.getProducts().stream().map(productRepository::findById).map(o -> o.orElseThrow(ProductNotFoundException::new)).collect(Collectors.toList())
         );
     }
 
