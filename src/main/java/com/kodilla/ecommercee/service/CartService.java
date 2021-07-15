@@ -1,5 +1,8 @@
 package com.kodilla.ecommercee.service;
 
+import com.kodilla.ecommercee.controller.exception.OrderNotFoundException;
+import com.kodilla.ecommercee.controller.exception.UserIsBlockedException;
+import com.kodilla.ecommercee.controller.exception.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
@@ -77,27 +80,31 @@ public class CartService {
         return activeCart;
     }
 
-    public Order createOrderBasedOnCart (final Long cartId, final Long userId) {
+    public Order createOrderBasedOnCart (final Long cartId, final Long userId) throws UserIsBlockedException {
 
         Optional<Cart> cartById = cartRepository.findById(cartId);
         Cart activeCart = cartById.get();
 
         Optional<User> userById = userRepository.findById(userId);
         User activeUser = userById.get();
-
         Order createdOrder = new Order();
-        createdOrder.setCart(activeCart);
-        createdOrder.setOrderIsCompleted(true);
-        createdOrder.setUser(activeUser);
 
-        activeCart.setCartClosed(true);
+        if (!activeUser.isBlocked()) {
 
-        Cart newCart = new Cart();
-        activeUser.setCart(newCart);
+            createdOrder.setCart(activeCart);
+            createdOrder.setOrderIsCompleted(true);
+            createdOrder.setUser(activeUser);
 
-        userRepository.save(activeUser);
-        cartRepository.save(activeCart);
-        cartRepository.save(newCart);
+            activeCart.setCartClosed(true);
+
+            Cart newCart = new Cart();
+            activeUser.setCart(newCart);
+
+            userRepository.save(activeUser);
+            cartRepository.save(activeCart);
+            cartRepository.save(newCart);
+
+        } else { throw new UserIsBlockedException();}
 
         return orderRepository.save(createdOrder);
     }

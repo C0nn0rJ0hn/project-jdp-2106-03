@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.controller.exception.CartNotFoundException;
+import com.kodilla.ecommercee.controller.exception.UserIsBlockedException;
+import com.kodilla.ecommercee.controller.exception.UserNotFoundException;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
@@ -107,7 +109,7 @@ public class CartController {
 
     @PostMapping(value = "createOrder")
     public OrderDto createOrder(@RequestParam Long cartId,
-                                @RequestParam Long userId) {
+                                @RequestParam Long userId) throws UserIsBlockedException {
 
         Order orderBasedOnCart = cartService.createOrderBasedOnCart(cartId, userId);
         orderService.saveOrder(orderBasedOnCart);
