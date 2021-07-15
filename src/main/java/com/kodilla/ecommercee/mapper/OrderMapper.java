@@ -31,9 +31,9 @@ public class OrderMapper {
                 orderDto.getOrderDate(),
                 orderDto.getOrderNumber(),
                 orderDto.getOrderTotalPrice(),
-                orderDto.isOrderIsCompleted(),
-                orderDto.isOrderIsPaid(),
-                orderDto.isOrderIsSend(),
+                orderDto.isOrderCompleted(),
+                orderDto.isOrderPaid(),
+                orderDto.isOrderSend(),
                 orderDto.getAddressCountry(),
                 orderDto.getAddressCity(),
                 orderDto.getAddressPost(),
@@ -65,5 +65,4 @@ public class OrderMapper {
                 .map(this::mapOrderToOrderDto)
                 .collect(Collectors.toList());
     }
-
 }
