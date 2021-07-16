@@ -66,8 +66,29 @@ public class UserService {
         String expire = keyExpireDate.format(formatter);
         userWithKey.setKeyExpirationDate(expire);
 
+        userWithKey.setBlocked(false);
+
         userRepository.save(userWithKey);
 
         return userWithKey;
+    }
+
+    public boolean checkIfKeyHasExpired(final Long userId) throws UserNotFoundException{
+        Optional<User> findUser = userRepository.findById(userId);
+        User userToBeChecked = findUser.orElseThrow(UserNotFoundException::new);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String keyExpireDate = userToBeChecked.getKeyExpirationDate();
+        LocalDateTime expireDate = LocalDateTime.parse(keyExpireDate, formatter);
+        LocalDateTime now = LocalDateTime.now();
+
+        if (now.isAfter(expireDate)) {
+            userToBeChecked.setBlocked(true);
+            userRepository.save(userToBeChecked);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
