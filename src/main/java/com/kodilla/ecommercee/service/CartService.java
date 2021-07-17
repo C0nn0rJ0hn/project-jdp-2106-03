@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,21 +110,21 @@ public class CartService {
         if (!activeUser.isBlocked()) {
 
             createdOrder.setCart(activeCart);
-            createdOrder.setOrderIsCompleted(true);
             createdOrder.setUser(activeUser);
+            createdOrder.setOrderTotalPrice(activeCart.getCartSum());
+            createdOrder.setOrderIsCompleted(false);
+            createdOrder.setOrderIsPaid(false);
+            createdOrder.setOrderDate(LocalDate.now());
+            createdOrder.setOrderNumber("INV/" + LocalDate.now() + "/" +  activeCart.getId());
 
             activeCart.setCartClosed(true);
-
             Cart newCart = new Cart();
-            activeUser.setCart(newCart);
+            activeUser.setCart(cartRepository.save(newCart));
 
-            cartRepository.save(newCart);
             cartRepository.save(activeCart);
             userRepository.save(activeUser);
-
-        } else { throw new UserIsBlockedException();}
-
-        return orderRepository.save(createdOrder);
+            return orderRepository.save(createdOrder);
+        }
+        throw new UserIsBlockedException();
     }
-
 }
