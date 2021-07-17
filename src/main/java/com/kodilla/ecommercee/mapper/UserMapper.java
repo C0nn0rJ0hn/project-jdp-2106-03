@@ -23,6 +23,25 @@ public class UserMapper {
     @Autowired
     private CartRepository cartRepository;
 
+    public User mapForNewUser(final UserDto userDto) {
+
+        Cart newCart = new Cart();
+        Long cartForNewCart  = cartRepository.save(newCart).getId();
+
+        return new User(
+                userDto.getId(),
+                userDto.getName(),
+                userDto.getLastname(),
+                userDto.getMail(),
+                userDto.getPhoneNumber(),
+                userDto.getNIP(),
+                userDto.isBlocked(),
+                userDto.getGeneratedRandomKey(),
+                cartRepository.findById(cartForNewCart).orElse(null),
+                userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(OrderNotFoundException::new)).collect(Collectors.toList())
+        );
+    }
+
     public User mapToUser(final UserDto userDto) {
         return new User(
                 userDto.getId(),
