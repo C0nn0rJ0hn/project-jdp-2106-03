@@ -36,7 +36,7 @@ public class GroupController {
     @GetMapping("getGroup")
     public GroupDto getGroup(@RequestParam Long id) throws GroupNotFoundException {
         return groupMapper.mapToGroupDto(
-                groupService.getGroup(id).orElseThrow(GroupNotFoundException::new)
+                groupService.getGroup(id).orElseThrow(() -> new GroupNotFoundException("Group not found"))
         );
     }
 

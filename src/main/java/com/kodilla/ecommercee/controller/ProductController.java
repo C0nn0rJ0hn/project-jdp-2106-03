@@ -31,7 +31,7 @@ public class ProductController {
     @GetMapping(value = "/getProduct")
     public ProductDto getProduct(@RequestParam Long productId) throws ProductNotFoundException {
 
-        return mapper.mapToProductDto(service.getProductById(productId).orElseThrow(ProductNotFoundException::new));
+        return mapper.mapToProductDto(service.getProductById(productId).orElseThrow(() -> new ProductNotFoundException("Product with id: " + productId + " not found")));
     }
 
     @DeleteMapping(value = "/deleteProduct")

@@ -24,7 +24,8 @@ public class CartMapper {
                 cartDto.getCartId(),
                 cartDto.getCartSum(),
                 cartDto.isCartClosed(),
-                cartDto.getProducts().stream().map(productRepository::findById).map(o -> o.orElseThrow(ProductNotFoundException::new)).collect(Collectors.toList())
+                cartDto.getProducts().stream().map(productRepository::findById).map(o -> o.orElseThrow(() -> new ProductNotFoundException("Product not found")))
+                        .collect(Collectors.toList())
         );
     }
 

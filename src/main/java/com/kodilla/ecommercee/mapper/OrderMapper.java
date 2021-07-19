@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.repository.CartRepository;
@@ -25,7 +26,6 @@ public class OrderMapper {
 
 
     public Order mapOrderDtoToOrder(OrderDto orderDto){
-
         return new Order(
                 orderDto.getId(),
                 orderDto.getOrderDate(),
@@ -43,7 +43,6 @@ public class OrderMapper {
     }
 
     public OrderDto mapOrderToOrderDto(Order order){
-
         return new OrderDto(order.getId(),
                 order.getUser().getId(),
                 order.getCart().getId(),
