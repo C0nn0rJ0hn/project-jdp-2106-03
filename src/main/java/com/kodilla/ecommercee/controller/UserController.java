@@ -36,7 +36,7 @@ public class UserController {
 
     @GetMapping(value = "/getUser")
     public UserDto getUser(@RequestParam Long userId) throws UserNotFoundException {
-        User user = service.getUser(userId).orElseThrow(UserNotFoundException::new);
+        User user = service.getUser(userId).orElseThrow(() -> new UserNotFoundException("User with " + userId + " id, not exists"));
         return mapper.mapToUserDto(user);
     }
 

@@ -47,7 +47,7 @@ public class CartController {
     @GetMapping(value = "getCart")
     public CartDto getCart(@RequestParam Long cartId) throws CartNotFoundException {
 
-        Cart cart = cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        Cart cart = cartService.getCart(cartId).orElseThrow(() -> new CartNotFoundException("Cart not found"));
 
         return cartMapper.mapToCartDto(cart);
     }
@@ -77,7 +77,7 @@ public class CartController {
     @GetMapping(value = "cartContains")
     public List<ProductDto> cartContains(@RequestParam Long cartId) throws CartNotFoundException {
 
-        cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        cartService.getCart(cartId).orElseThrow(() -> new CartNotFoundException("Cart not found"));
         List<Product> productsFromCart = cartService.getProductsFromCart(cartId);
 
         return productMapper.mapToProductDtoList(productsFromCart);
@@ -87,7 +87,7 @@ public class CartController {
     public CartDto addProductToCart(@RequestParam Long cartId,
                                     @RequestParam Long productId) throws CartNotFoundException {
 
-        cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        cartService.getCart(cartId).orElseThrow(() -> new CartNotFoundException("Cart not found"));
         productService.getProductById(productId).get();
         Cart activeCart = cartService.addProductToCart(productId, cartId);
 
@@ -99,7 +99,7 @@ public class CartController {
     public CartDto removeProductFromCart(@RequestParam Long cartId,
                                          @RequestParam Long productId) throws CartNotFoundException {
 
-        cartService.getCart(cartId).orElseThrow(CartNotFoundException::new);
+        cartService.getCart(cartId).orElseThrow(() -> new CartNotFoundException("Cart not found"));
         productService.getProductById(productId).get();
         Cart activeCart = cartService.deleteProductFromCart(productId, cartId);
 

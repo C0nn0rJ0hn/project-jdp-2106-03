@@ -34,12 +34,12 @@ public class OrderController {
             Order returnOrder =  orderService.saveOrder(orderMapper.mapOrderDtoToOrder(orderDto));
             return orderMapper.mapOrderToOrderDto(returnOrder) ;
         }
-        throw new  OrderNotFoundException();
+        throw new  OrderNotFoundException("Order not found");
     }
 
     @GetMapping(value = "getOrder")
     public OrderDto getOrder(@RequestParam long orderId) throws OrderNotFoundException{
-        Order order = orderService.findOrderById(orderId).orElseThrow(OrderNotFoundException::new);
+        Order order = orderService.findOrderById(orderId).orElseThrow(() -> new OrderNotFoundException("Order not found"));
         return orderMapper.mapOrderToOrderDto(order);
     }
 
@@ -56,6 +56,6 @@ public class OrderController {
             orderService.deleteOrderById(orderId);
             return true;
         }
-        throw new OrderNotFoundException() ;
+        throw new OrderNotFoundException("Order not found") ;
     }
 }

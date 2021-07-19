@@ -38,14 +38,14 @@ public class UserService {
 
     public void blockUser(final Long userId) throws UserNotFoundException {
         Optional<User> userToBeBlocked = userRepository.findById(userId);
-        User blockedUser = userToBeBlocked.orElseThrow(UserNotFoundException::new);
+        User blockedUser = userToBeBlocked.orElseThrow(() -> new UserNotFoundException("User not found"));
         blockedUser.setBlocked(true);
         userRepository.save(blockedUser);
     }
 
     public void unblockUser(final Long userId) throws UserNotFoundException{
         Optional<User> userToBeUnblocked = userRepository.findById(userId);
-        User unblockedUser = userToBeUnblocked.orElseThrow(UserNotFoundException::new);
+        User unblockedUser = userToBeUnblocked.orElseThrow(() -> new UserNotFoundException("User not found"));
         unblockedUser.setBlocked(false);
         userRepository.save(unblockedUser);
     }
@@ -60,7 +60,7 @@ public class UserService {
         }
 
         Optional<User> userToHaveKey = userRepository.findById(userId);
-        User userWithKey = userToHaveKey.orElseThrow(UserNotFoundException::new);
+        User userWithKey = userToHaveKey.orElseThrow(() -> new UserNotFoundException("User not found"));
         userWithKey.setGeneratedRandomKey(sb.toString());
 
         LocalDateTime keyExpireDate = LocalDateTime.now().plusHours(1);
@@ -77,7 +77,7 @@ public class UserService {
 
     public boolean checkIfKeyHasExpired(final Long userId) throws UserNotFoundException{
         Optional<User> findUser = userRepository.findById(userId);
-        User userToBeChecked = findUser.orElseThrow(UserNotFoundException::new);
+        User userToBeChecked = findUser.orElseThrow(() -> new UserNotFoundException("User not found"));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String keyExpireDate = userToBeChecked.getKeyExpirationDate();

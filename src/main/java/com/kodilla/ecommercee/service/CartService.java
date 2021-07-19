@@ -107,11 +107,11 @@ public class CartService {
         User activeUser = userById.get();
         Order createdOrder = new Order();
 
-        if (!activeUser.isBlocked()) {
+        if (!activeUser.isBlocked() && activeCart.getCartSum() != null) {
 
             createdOrder.setCart(activeCart);
             createdOrder.setUser(activeUser);
-            createdOrder.setOrderTotalPrice(activeCart.getCartSum());
+            createdOrder.setOrderTotalPrice(activeCart.getCartSum().add(new BigDecimal("9.90")));
             createdOrder.setOrderIsCompleted(false);
             createdOrder.setOrderIsPaid(false);
             createdOrder.setOrderDate(LocalDate.now());
@@ -125,6 +125,6 @@ public class CartService {
             userRepository.save(activeUser);
             return orderRepository.save(createdOrder);
         }
-        throw new UserIsBlockedException();
+        throw new UserIsBlockedException("User is blocked or there are no products in cart");
     }
 }

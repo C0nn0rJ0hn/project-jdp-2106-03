@@ -36,7 +36,7 @@ public class UserMapper {
                 userDto.isBlocked(),
                 userDto.getGeneratedRandomKey(),
                 cartRepository.findById(cartForNewCart).orElse(null),
-                userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(OrderNotFoundException::new)).collect(Collectors.toList())
+                userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(() -> new OrderNotFoundException("Order not found"))).collect(Collectors.toList())
         );
     }
 
@@ -51,7 +51,7 @@ public class UserMapper {
                 userDto.isBlocked(),
                 userDto.getGeneratedRandomKey(),
                 cartRepository.findById(userDto.getCartId()).orElse(null),
-                userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(OrderNotFoundException::new)).collect(Collectors.toList())
+                userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(() -> new OrderNotFoundException("Order not found"))).collect(Collectors.toList())
         );
     }
 
