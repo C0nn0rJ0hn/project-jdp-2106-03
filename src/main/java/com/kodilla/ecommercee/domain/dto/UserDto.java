@@ -10,21 +10,21 @@ public class UserDto {
     private String lastname;
     private String mail;
     private String phoneNumber;
-    private String NIP;
+    private String nip;
     private boolean isBlocked;
     private String generatedRandomKey;
     private String keyExpirationDate;
     private Long cartId;
     private List<Long> ordersId = new ArrayList<>();
 
-    public UserDto(Long id, String name, String lastname, String mail, String phoneNumber, String NIP, boolean isBlocked,
+    public UserDto(Long id, String name, String lastname, String mail, String phoneNumber, String nip, boolean isBlocked,
                    String generatedRandomKey, String keyExpirationDate, Long cartId, List<Long> ordersId) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
         this.phoneNumber = phoneNumber;
-        this.NIP = NIP;
+        this.nip = nip;
         this.isBlocked = isBlocked;
         this.generatedRandomKey = generatedRandomKey;
         this.keyExpirationDate = keyExpirationDate;
@@ -32,12 +32,12 @@ public class UserDto {
         this.ordersId = ordersId;
     }
 
-    public UserDto(String name, String lastname, String mail, String phoneNumber, String NIP) {
+    public UserDto(String name, String lastname, String mail, String phoneNumber, String nip) {
         this.name = name;
         this.lastname = lastname;
         this.mail = mail;
         this.phoneNumber = phoneNumber;
-        this.NIP = NIP;
+        this.nip = nip;
     }
 
     public UserDto() {
@@ -63,8 +63,8 @@ public class UserDto {
         return phoneNumber;
     }
 
-    public String getNIP() {
-        return NIP;
+    public String getNip() {
+        return nip;
     }
 
     public boolean isBlocked() {
@@ -92,7 +92,7 @@ public class UserDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDto userDto = (UserDto) o;
-        return id.equals(userDto.id) && name.equals(userDto.name) && lastname.equals(userDto.lastname) && mail.equals(userDto.mail) && phoneNumber.equals(userDto.phoneNumber) && NIP.equals(userDto.NIP);
+        return id.equals(userDto.id) && name.equals(userDto.name) && lastname.equals(userDto.lastname) && mail.equals(userDto.mail) && phoneNumber.equals(userDto.phoneNumber) && nip.equals(userDto.nip);
     }
 
     @Override

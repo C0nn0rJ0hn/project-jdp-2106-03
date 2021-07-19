@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +23,6 @@ public class UserMapper {
     private CartRepository cartRepository;
 
     public User mapForNewUser(final UserDto userDto) {
-
         Cart newCart = new Cart();
         Long cartForNewCart  = cartRepository.save(newCart).getId();
 
@@ -34,7 +32,7 @@ public class UserMapper {
                 userDto.getLastname(),
                 userDto.getMail(),
                 userDto.getPhoneNumber(),
-                userDto.getNIP(),
+                userDto.getNip(),
                 userDto.isBlocked(),
                 userDto.getGeneratedRandomKey(),
                 cartRepository.findById(cartForNewCart).orElse(null),
@@ -49,7 +47,7 @@ public class UserMapper {
                 userDto.getLastname(),
                 userDto.getMail(),
                 userDto.getPhoneNumber(),
-                userDto.getNIP(),
+                userDto.getNip(),
                 userDto.isBlocked(),
                 userDto.getGeneratedRandomKey(),
                 cartRepository.findById(userDto.getCartId()).orElse(null),
