@@ -22,7 +22,9 @@ public class Order {
     private Cart cart;
     private User user;
 
-    public Order( LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
+    public Order( LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted,
+                  boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost,
+                  String addressStreet, String addressBuildNumber) {
         this.orderDate = orderDate;
         this.orderNumber = orderNumber;
         this.orderTotalPrice = orderTotalPrice;
@@ -36,7 +38,9 @@ public class Order {
         this.addressBuildNumber = addressBuildNumber;
     }
 
-    public Order(Long id, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted, boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost, String addressStreet, String addressBuildNumber) {
+    public Order(Long id, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted,
+                 boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost,
+                 String addressStreet, String addressBuildNumber) {
         this.id = id;
         this.orderDate = orderDate;
         this.orderNumber = orderNumber;
@@ -52,6 +56,25 @@ public class Order {
     }
 
     public Order() {
+    }
+
+    public Order(Long id, LocalDate orderDate, String orderNumber, BigDecimal orderTotalPrice, boolean orderIsCompleted,
+                 boolean orderIsPaid, boolean orderIsSend, String addressCountry, String addressCity, String addressPost,
+                 String addressStreet, String addressBuildNumber, Cart cart, User user) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.orderNumber = orderNumber;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderIsCompleted = orderIsCompleted;
+        this.orderIsPaid = orderIsPaid;
+        this.orderIsSend = orderIsSend;
+        this.addressCountry = addressCountry;
+        this.addressCity = addressCity;
+        this.addressPost = addressPost;
+        this.addressStreet = addressStreet;
+        this.addressBuildNumber = addressBuildNumber;
+        this.cart = cart;
+        this.user = user;
     }
 
     @Id

@@ -1,10 +1,8 @@
 package com.kodilla.ecommercee.mapper;
 
-import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.repository.CartRepository;
-import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderMapper {
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Order mapOrderDtoToOrder(OrderDto orderDto){
         return new Order(
@@ -28,7 +32,9 @@ public class OrderMapper {
                 orderDto.getAddressCity(),
                 orderDto.getAddressPost(),
                 orderDto.getAddressStreet(),
-                orderDto.getAddressBuildNumber()
+                orderDto.getAddressBuildNumber(),
+                cartRepository.findById(orderDto.getCartId()).orElse(null),
+                userRepository.findById(orderDto.getUserId()).orElse(null)
         );
     }
 
