@@ -29,7 +29,7 @@ public class OrderController {
     }
 
     @PutMapping(value = "updateOrder")
-    public OrderDto updateOrder( @RequestParam OrderDto orderDto) throws OrderNotFoundException{
+    public OrderDto updateOrder(@RequestBody OrderDto orderDto) throws OrderNotFoundException{
         if (orderService.findOrderById(orderDto.getId()).isPresent()){
             Order returnOrder =  orderService.saveOrder(orderMapper.mapOrderDtoToOrder(orderDto));
             return orderMapper.mapOrderToOrderDto(returnOrder) ;
