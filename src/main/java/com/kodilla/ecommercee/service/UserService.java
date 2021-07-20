@@ -1,9 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.controller.exception.UserNotFoundException;
-import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

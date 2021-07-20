@@ -15,16 +15,6 @@ import java.util.stream.Collectors;
 @Service
 public class OrderMapper {
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-
     public Order mapOrderDtoToOrder(OrderDto orderDto){
         return new Order(
                 orderDto.getId(),
