@@ -10,6 +10,7 @@ import com.kodilla.ecommercee.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,6 @@ public class UserMapper {
     private CartRepository cartRepository;
 
     public User mapForNewUser(final UserDto userDto) {
-        Cart newCart = new Cart();
-        Long cartForNewCart  = cartRepository.save(newCart).getId();
-
         return new User(
                 userDto.getId(),
                 userDto.getName(),
@@ -35,10 +33,10 @@ public class UserMapper {
                 userDto.getNip(),
                 userDto.isBlocked(),
                 userDto.getGeneratedRandomKey(),
-                cartRepository.findById(cartForNewCart).orElse(null),
-                userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(() -> new OrderNotFoundException("Order not found"))).collect(Collectors.toList())
-        );
+                null,
+                new ArrayList<>());
     }
+
 
     public User mapToUser(final UserDto userDto) {
         return new User(
@@ -50,7 +48,7 @@ public class UserMapper {
                 userDto.getNip(),
                 userDto.isBlocked(),
                 userDto.getGeneratedRandomKey(),
-                cartRepository.findById(userDto.getCartId()).orElse(null),
+                userDto.getCartId() != null ? cartRepository.findById(userDto.getCartId()).orElse(null) : null,
                 userDto.getOrdersId().stream().map(orderRepository::findById).map(o -> o.orElseThrow(() -> new OrderNotFoundException("Order not found"))).collect(Collectors.toList())
         );
     }

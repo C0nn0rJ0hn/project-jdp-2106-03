@@ -2,9 +2,11 @@ package com.kodilla.ecommercee.controller;
 
 
 import com.kodilla.ecommercee.controller.exception.UserNotFoundException;
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.domain.dto.UserDto;
 import com.kodilla.ecommercee.mapper.UserMapper;
+import com.kodilla.ecommercee.service.CartService;
 import com.kodilla.ecommercee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,9 +25,14 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private CartService cartService;
+
     @PostMapping(value = "/createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDto userDto) {
-        service.saveUser(mapper.mapForNewUser(userDto));
+        User user = mapper.mapForNewUser(userDto);
+        user.setCart(cartService.saveCart(new Cart()));
+        service.saveUser(user);
     }
 
     @GetMapping(value = "/getUsers")
